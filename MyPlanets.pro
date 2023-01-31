@@ -9,30 +9,30 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    aboutdialog.cpp \
-    createdialog.cpp \
-    csvview.cpp \
-    editdialog.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    sourcedialog.cpp
+    src/aboutdialog.cpp \
+    src/createdialog.cpp \
+    src/csvview.cpp \
+    src/editdialog.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/sourcedialog.cpp
 
 HEADERS += \
-    aboutdialog.h \
-    createdialog.h \
-    csvview.h \
-    editdialog.h \
-    mainwindow.h \
-    queue.h \
-    sourcedialog.h
+    src/aboutdialog.h \
+    src/createdialog.h \
+    src/csvview.h \
+    src/editdialog.h \
+    src/mainwindow.h \
+    src/queue.h \
+    src/sourcedialog.h
 
 FORMS += \
-    aboutdialog.ui \
-    createdialog.ui \
-    csvview.ui \
-    editdialog.ui \
-    mainwindow.ui \
-    sourcedialog.ui
+    forms/aboutdialog.ui \
+    forms/createdialog.ui \
+    forms/csvview.ui \
+    forms/editdialog.ui \
+    forms/mainwindow.ui \
+    forms/sourcedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -40,7 +40,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    ../res/pack1.qrc \
-    ../res/pack2.qrc
+    res/pack1.qrc \
+    res/pack2.qrc
 
 DISTFILES +=
