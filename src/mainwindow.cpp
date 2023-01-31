@@ -1,29 +1,27 @@
-//Saganenko AV IKPI 04
-//var. 20
-//built with MinGw x64
-//mainwindow.cpp
-
-//parent forms
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//extra forms
 #include "aboutdialog.h"
 #include "editdialog.h"
 #include "createdialog.h"
 #include "sourcedialog.h"
 #include "csvview.h"
 
-//Qt libraries
 #include <QPixmap>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    int id = QFontDatabase::addApplicationFont(":/fonts/volume1/venus_uprising.otf");
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont f(family);
+    f.setPointSize(16);
+    f.setBold(false);
 }
 
 MainWindow::~MainWindow()
@@ -35,7 +33,6 @@ MainWindow::~MainWindow()
     name;type;subtype;radius;weight;moons;population;rotation;temperature;image
     whatever deviation met will result in program complete collapse (now it's prevented)    */
 
-//func. to open a read-only file and represent parameters in window 1 (view-window) ===========================================================
 void MainWindow::on_actionOpen_triggered()
 {
     using namespace std;
@@ -99,11 +96,9 @@ void MainWindow::on_actionOpen_triggered()
     }
 }
 
-//func. to exit application (simple as one line yep) ==========================================================================================
 void MainWindow::on_actionExit_triggered()
 { QCoreApplication::exit(); }
 
-//func. to close current csv database =========================================================================================================
 void MainWindow::on_actionClose_triggered()
 {
     if (widelist.isEmpty())
@@ -113,7 +108,6 @@ void MainWindow::on_actionClose_triggered()
     ui->buttonPrevPlanet->setEnabled(0);
 }
 
-//func. to show next object ===================================================================================================================
 void MainWindow::on_buttonNextPlanet_clicked()
 {
     //stage 1 - increment index (step 2.1)
@@ -127,7 +121,6 @@ void MainWindow::on_buttonNextPlanet_clicked()
     ui->objectsList->setCurrentIndex(wideindex);
 }
 
-//func. to show previous object ===============================================================================================================
 void MainWindow::on_buttonPrevPlanet_clicked()
 {
     //stage 1 - decrement index (step 3.1)
@@ -141,7 +134,6 @@ void MainWindow::on_buttonPrevPlanet_clicked()
     ui->objectsList->setCurrentIndex(wideindex);
 }
 
-//func. to show specific (chosen in list) object ==============================================================================================
 void MainWindow::on_objectsList_currentIndexChanged(int index)
 {
     //stage 1 - change selected object by the index in combobox (step 4.1)
@@ -151,7 +143,6 @@ void MainWindow::on_objectsList_currentIndexChanged(int index)
         SetLabels();
 }
 
-//func. to get parameters from csv-database and set to labels on window 1 (view-window) =======================================================
 void MainWindow::SetLabels()
 {
     //index is universal, so it is changed depending on button and list funcs.
@@ -181,7 +172,6 @@ void MainWindow::SetLabels()
     }
 }
 
-//func. to clear all the labels ===============================================================================================================
 void MainWindow::ClearLabels()
 {
     //extra tool - required for closing and opening new databases
@@ -206,7 +196,6 @@ void MainWindow::ClearLabels()
     ui->ImageObject->setPixmap(image);
 }
 
-//func. to open about window ==================================================================================================================
 void MainWindow::on_actionShow_about_triggered()
 {
     //simple open new dialog (about dialog)
@@ -217,7 +206,6 @@ void MainWindow::on_actionShow_about_triggered()
     aboutdialog.exec();
 }
 
-//func. to open edit window ==================================================================================================================
 void MainWindow::on_actionOpenEdit_triggered()
 {
     //pretty much the same. BUT it closes current opened csv-base
@@ -229,7 +217,6 @@ void MainWindow::on_actionOpenEdit_triggered()
     editdialog.exec();
 }
 
-//func. to open create window ================================================================================================================
 void MainWindow::on_actionCreate_triggered()
 {
     //exactly the same as one before
@@ -241,15 +228,12 @@ void MainWindow::on_actionCreate_triggered()
     createdialog.exec();
 }
 
-//func. to show sources window ===============================================================================================================
 void MainWindow::on_actionShow_sources_triggered()
 {
     sourcedialog sourcedialog;
     sourcedialog.setModal(true);
     sourcedialog.exec();
 }
-
-//func. to show csv-view window ===========================================================================================================
 
 void MainWindow::on_actionLook_triggered()
 {

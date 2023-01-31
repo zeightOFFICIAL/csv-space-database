@@ -16,30 +16,30 @@ public:
     ~EditDialog();
 
 private slots:
-    //funcs. to manipulate files
+    //funcs. To manipulate files. Open new, save at the same dir, open another and merge
     void on_openDBButton_clicked();
     void on_saveDBButton_clicked();
     void on_mergeButton_clicked();
 
-    //funcs. to manipulate objects
+    //funcs. To manipulate objects. Save or add object, delete object
     void on_saveChangesButton_clicked();
-    void on_DeleteThisButton_clicked();
+    void on_deleteObjectButton_clicked();
 
-    //crucial navigator
+    //func. Crucial navigator. List at the top
     void on_mainbox_currentIndexChanged(int index);
 
 private:
     Ui::EditDialog *ui;
 
-    //extra tools
-    void ClearLabels();
-    void SetLabels();
+    //func. Extra tools to clear and set values in fields
+    void cearAllLabels();
+    void loadLabels();
 
-    //local vars
-    std::vector<QString> MainVector;
-    size_t localwideindex = 0;
-    QString OpenFile_Path;
-    bool unsaved = true;
+    //vars. Inner vars to work with editing
+    std::vector<QString> mainContainer;
+    size_t localWideIndex = 0;
+    QString openFilePath;
+    bool isUnsaved = true;
 };
 
 #endif // EDITDIALOG_H

@@ -1,18 +1,10 @@
-//Saganenko AV IKPI 04
-//var. 20
-//built with MinGw x64
-//editdialog.cpp
-
-//parent forms
 #include "editdialog.h"
 #include "ui_editdialog.h"
 #include "queue.h"
 
-//Qt libraries
 #include <QFileDialog>
 #include <QMessageBox>
 
-//C++ STL library
 #include <vector>
 
 EditDialog::EditDialog(QWidget *parent) :
@@ -27,215 +19,207 @@ EditDialog::~EditDialog()
     delete ui;
 }
 
-/*  it was the most difficult part of the entire project so there might be some problems cuzed
+/*  it was the most difficult part of the entire project so there might be some problems caused
     by not proper testing.  */
 
-//func. to clear all the fields simple ====================================================================================================
-void EditDialog::ClearLabels()
+void EditDialog::cearAllLabels()
 {
-    ui->NameField->setText("");
-    ui->TypeField->setText("");
-    ui->SubField->setText("");
-    ui->RadiusField->setText("");
-    ui->WeightField->setText("");
-    ui->MoonsField->setText("");
-    ui->PopulationField->setText("");
-    ui->RotationField->setText("");
-    ui->TemperatureField->setText("");
-    ui->ImageField->setText("");
+    ui->nameField->setText("");
+    ui->typeField->setText("");
+    ui->subField->setText("");
+    ui->radiusField->setText("");
+    ui->weightField->setText("");
+    ui->moonsField->setText("");
+    ui->populationField->setText("");
+    ui->rotationField->setText("");
+    ui->temperatureField->setText("");
+    ui->imageField->setText("");
 }
 
-//func. to set all the parameters to labels ===============================================================================================
-void EditDialog::SetLabels()
+void EditDialog::loadLabels()
 {
-    QString thisstring = MainVector[localwideindex];
-    QStringList ThisVector = thisstring.split(";");
+    QString thisString = mainContainer[localWideIndex];
+    QStringList thisVector = thisString.split(";");
 
-    ui->NameField->setText(ThisVector[0]);
-    ui->TypeField->setText(ThisVector[1]);
-    ui->SubField->setText(ThisVector[2]);
-    ui->RadiusField->setText(ThisVector[3]);
-    ui->WeightField->setText(ThisVector[4]);
-    ui->MoonsField->setText(ThisVector[5]);
-    ui->PopulationField->setText(ThisVector[6]);
-    ui->RotationField->setText(ThisVector[7]);
-    ui->TemperatureField->setText(ThisVector[8]);
-    ui->ImageField->setText(ThisVector[9]);
+    ui->nameField->setText(thisVector[0]);
+    ui->typeField->setText(thisVector[1]);
+    ui->subField->setText(thisVector[2]);
+    ui->radiusField->setText(thisVector[3]);
+    ui->weightField->setText(thisVector[4]);
+    ui->moonsField->setText(thisVector[5]);
+    ui->populationField->setText(thisVector[6]);
+    ui->rotationField->setText(thisVector[7]);
+    ui->temperatureField->setText(thisVector[8]);
+    ui->imageField->setText(thisVector[9]);
 }
 
-//func. to open new file ==================================================================================================================
 void EditDialog::on_openDBButton_clicked()
 {
     //if file wasn't saved ask whether user wants to save it or proceed saving not
-    if(unsaved == false)
+    if(isUnsaved == false)
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to proceed and delete this database or save it?",QMessageBox::Yes | QMessageBox::No);
-        //if the answer is yes then this currently unsaved database will be deleted!
-        //want to save? - initialize on_SaveButton_clicked();
+        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to save this database?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
             on_saveDBButton_clicked();
         else
             return;
     }
     //if previous condition is not called or file was saved proceed here
-    ClearLabels();
-    QString OpenFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
-    OpenFile_Path = QFileDialog::getOpenFileName(this,"Open a file","/",OpenFile_Filter);
+    cearAllLabels();
+    QString openFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
+    openFilePath = QFileDialog::getOpenFileName(this,"Open a file","/",openFileFilter);
 
-    QFile File(OpenFile_Path);
-    if(!File.open(QFile::ReadOnly | QFile::Text))
+    QFile file(openFilePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QMessageBox::warning(this,"Error","ActionOpenFile::The file wasn't chosen!!\nCode ER:1");
-        OpenFile_Path=NULL;
+        QMessageBox::warning(this,"Warning","ActionOpenFile::The file wasn't chosen!\n(Code ER:1)");
+        openFilePath=NULL;
         return;
     }
     else
     {
-        QFileInfo ThisFile(OpenFile_Path);
-        if (ThisFile.suffix()!="txt")
+        QFileInfo thisFile(openFilePath);
+        if (thisFile.suffix()!="txt" && thisFile.suffix()!="csv")
         {
-            QMessageBox::warning(this,"Error","ActionOpenFile::The file has wrong type!\nCode ER:2");
-            OpenFile_Path=NULL;
+            QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
+            openFilePath=NULL;
             return;
         }
-        QTextStream in(&File);
+        QTextStream in(&file);
 
         while(!in.atEnd())
         {
-            QString FileLine = in.readLine();
-            QStringList LineList = FileLine.split(";");
-            if (LineList.length()<10 || LineList.length()%10!=0)
+            QString fileLine = in.readLine();
+            QStringList lineList = fileLine.split(";");
+            if (lineList.length()<10 || lineList.length()%10!=0)
                 {
-                QMessageBox::warning(this,"Error","ActionOpenFile::The file has incorrect text!\nCode ER:3");
-                File.close();
-                ClearLabels();
-                OpenFile_Path=NULL;
-                FileLine=NULL;
-                LineList.clear();
-                MainVector.clear();
+                QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
+                file.close();
+                cearAllLabels();
+                openFilePath=NULL;
+                fileLine=NULL;
+                lineList.clear();
+                mainContainer.clear();
                 return;
                 }
-            if (LineList.contains(" ") || LineList.contains(""))
+            if (lineList.contains(" ") || lineList.contains(""))
             {
-                QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\nCode WR:4");
+                QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\n(Code WR:4)");
             }
-            MainVector.push_back(FileLine);
-            ui->mainbox->addItem(FileLine);
+            mainContainer.push_back(fileLine);
+            ui->mainbox->addItem(fileLine);
         }
         //so the main idea of this editing mode is its ability to add new object to database. so in order to create new object
-        //one must select "<add>" item of list and then save the labels - not very convenient yet there's worst ways
+        //one must select "<add>" item of list and then save the labels - not very convenient yet there're worse ways
         ui->mainbox->addItem("<add>");
-        localwideindex = 0;
-        SetLabels();
-        File.close();
-        ui->DeleteThisButton->setEnabled(1);
-        ui->SaveChangesButton->setEnabled(1);
+        localWideIndex = 0;
+        loadLabels();
+        file.close();
+        ui->deleteObjectButton->setEnabled(1);
+        ui->saveChangesButton->setEnabled(1);
     }
 }
 
-//func. to save changes OF THIS PARTICULAR OBJECT - might be changes or completely new object =============================================
+//to save changes OF THIS PARTICULAR OBJECT - might be changes or completely new object
 void EditDialog::on_saveChangesButton_clicked()
 {
     QString localline;
-    if(ui->NameField->text().isEmpty() || ui->TypeField->text().isEmpty() || ui->SubField->text().isEmpty()
-            || ui->RadiusField->text().isEmpty() || ui->WeightField->text().isEmpty() || ui->MoonsField->text().isEmpty() ||
-            ui->PopulationField->text().isEmpty() || ui->RotationField->text().isEmpty() || ui->TemperatureField->text().isEmpty() ||
-            ui->ImageField->text().isEmpty())
+    if(ui->nameField->text().isEmpty() || ui->typeField->text().isEmpty() || ui->subField->text().isEmpty()
+            || ui->radiusField->text().isEmpty() || ui->weightField->text().isEmpty() || ui->moonsField->text().isEmpty() ||
+            ui->populationField->text().isEmpty() || ui->rotationField->text().isEmpty() || ui->temperatureField->text().isEmpty() ||
+            ui->imageField->text().isEmpty())
     {
         QMessageBox::warning(this,"Warning","ActionSave::Some fields are empty!\nCode WR:ADD");
-        if(ui->NameField->text().isEmpty())
-            ui->NameField->setText("Unknown");
-        if(ui->TypeField->text().isEmpty())
-            ui->TypeField->setText("Unknown");
-        if(ui->SubField->text().isEmpty())
-            ui->SubField->setText("Unknown");
-        if(ui->RadiusField->text().isEmpty())
-            ui->RadiusField->setText("Unknown");
-        if(ui->WeightField->text().isEmpty())
-            ui->WeightField->setText("Unknown");
-        if(ui->MoonsField->text().isEmpty())
-            ui->MoonsField->setText("Unknown");
-        if(ui->PopulationField->text().isEmpty())
-            ui->PopulationField->setText("Unknown");
-        if(ui->RotationField->text().isEmpty())
-            ui->RotationField->setText("Unknown");
-        if(ui->TemperatureField->text().isEmpty())
-            ui->TemperatureField->setText("Unknown");
-        if(ui->ImageField->text().isEmpty())
-            ui->ImageField->setText("none");
+        if(ui->nameField->text().isEmpty())
+            ui->nameField->setText("Unknown");
+        if(ui->typeField->text().isEmpty())
+            ui->typeField->setText("Unknown");
+        if(ui->subField->text().isEmpty())
+            ui->subField->setText("Unknown");
+        if(ui->radiusField->text().isEmpty())
+            ui->radiusField->setText("Unknown");
+        if(ui->weightField->text().isEmpty())
+            ui->weightField->setText("Unknown");
+        if(ui->moonsField->text().isEmpty())
+            ui->moonsField->setText("Unknown");
+        if(ui->populationField->text().isEmpty())
+            ui->populationField->setText("Unknown");
+        if(ui->rotationField->text().isEmpty())
+            ui->rotationField->setText("Unknown");
+        if(ui->temperatureField->text().isEmpty())
+            ui->temperatureField->setText("Unknown");
+        if(ui->imageField->text().isEmpty())
+            ui->imageField->setText("none");
     }
-    localline=localline+ui->NameField->text()+";"+ui->TypeField->text()+";"+ui->SubField->text()+
-            ";"+ui->RadiusField->text()+";"+ui->WeightField->text()+";"+ui->MoonsField->text()+";"+ui->PopulationField->text()+";"+
-            ui->RotationField->text()+";"+ui->TemperatureField->text()+";"+ui->ImageField->text();
-    if (localwideindex<MainVector.size())
+    localline=localline+ui->nameField->text()+";"+ui->typeField->text()+";"+ui->subField->text()+
+            ";"+ui->radiusField->text()+";"+ui->weightField->text()+";"+ui->moonsField->text()+";"+ui->populationField->text()+";"+
+            ui->rotationField->text()+";"+ui->temperatureField->text()+";"+ui->imageField->text();
+    if (localWideIndex<mainContainer.size())
     {
-        MainVector[localwideindex]=localline;
-        ui->mainbox->setItemText(localwideindex,localline);
+        mainContainer[localWideIndex]=localline;
+        ui->mainbox->setItemText(localWideIndex,localline);
     }
     else
     {
-        MainVector.push_back(localline);
-        ui->mainbox->setItemText(localwideindex,localline);
+        mainContainer.push_back(localline);
+        ui->mainbox->setItemText(localWideIndex,localline);
         ui->mainbox->addItem("<add>");
-        ui->DeleteThisButton->setEnabled(1);
+        ui->deleteObjectButton->setEnabled(1);
     }
     QMessageBox::warning(this,"Success","This object was successefully reloaded!");
 }
 
-//func. to delete THIS CURRENLY CHOSEN OBJECT from list ===================================================================================
-void EditDialog::on_DeleteThisButton_clicked()
+void EditDialog::on_deleteObjectButton_clicked()
 {
-    MainVector.erase(MainVector.begin()+localwideindex);
-    ui->mainbox->removeItem(localwideindex);
+    mainContainer.erase(mainContainer.begin()+localWideIndex);
+    ui->mainbox->removeItem(localWideIndex);
 }
 
-//func. on the contrary to view or create forms this is the only way to navigate through elements =========================================
 void EditDialog::on_mainbox_currentIndexChanged(int index)
 {
-    if(MainVector.size()==0)
-        ui->DeleteThisButton->setEnabled(0);
-    if(index<MainVector.size())
+    if(mainContainer.size()==0)
+        ui->deleteObjectButton->setEnabled(0);
+    if(index<mainContainer.size())
     {
-        localwideindex = index;
-        ui->DeleteThisButton->setEnabled(1);
+        localWideIndex = index;
+        ui->deleteObjectButton->setEnabled(1);
     }
     else
     {
-        if (index==MainVector.size())
+        if (index==mainContainer.size())
         {
-            localwideindex = index;
-            ClearLabels();
+            localWideIndex = index;
+            cearAllLabels();
             return;
         }
-        ClearLabels();
-        ui->DeleteThisButton->setEnabled(0);
+        cearAllLabels();
+        ui->deleteObjectButton->setEnabled(0);
         return;
     }
-    SetLabels();
+    loadLabels();
 }
 
-//func. to save the file into the same place as the same file that was opened =============================================================
 void EditDialog::on_saveDBButton_clicked()
 {
-    QFile LocalFile(OpenFile_Path);
+    QFile LocalFile(openFilePath);
     if(!LocalFile.open(QFile::WriteOnly|QFile::Truncate))
     {
         QMessageBox::warning(this,"Error","SaveAs::The file wasn't chosen!\nCode ER:1");
-        OpenFile_Path=NULL;
+        openFilePath=NULL;
         return;
     }
     QTextStream out(&LocalFile);
-    for (size_t i = 0; i<MainVector.size();i++)
+    for (size_t i = 0; i<mainContainer.size();i++)
     {
-        QString ThisLine = MainVector[i];
+        QString ThisLine = mainContainer[i];
         out << ThisLine << "\n";
     }
     LocalFile.close();
-    unsaved = true;
+    QMessageBox::information(this,"Success","Database changed and saved!");
+    isUnsaved = true;
 }
 
-//func. to merge this current database with another one ===================================================================================
 void EditDialog::on_mergeButton_clicked()
 {
     QString SecondOpenFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
@@ -244,13 +228,13 @@ void EditDialog::on_mergeButton_clicked()
     if(!File.open(QFile::ReadOnly | QFile::Text))
     {
         QMessageBox::warning(this,"Error","ActionOpen::File wasn't chosen!\nCode ER:1");
-        OpenFile_Path=NULL;
+        openFilePath=NULL;
         return;
     }
     QFileInfo ThisFile(SecondOpenFile_Path);
     if (ThisFile.suffix()!="txt")
     {   QMessageBox::warning(this,"Error","ActionOpenFile::The file has wrong type!\nCode ER:2");
-        OpenFile_Path=NULL;
+        openFilePath=NULL;
         return;   }
     QTextStream in(&File);
     int i=0;
@@ -271,15 +255,15 @@ void EditDialog::on_mergeButton_clicked()
             QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\nCode WR:4");
         if(i == 0)
         {
-            ui->mainbox->removeItem(MainVector.size());
+            ui->mainbox->removeItem(mainContainer.size());
             i=1;
         }
-        MainVector.push_back(FileLine);
+        mainContainer.push_back(FileLine);
         ui->mainbox->addItem(FileLine);
 
     }
     File.close();
-    localwideindex=0;
+    localWideIndex=0;
 
     ui->mainbox->addItem("<add>");
 }

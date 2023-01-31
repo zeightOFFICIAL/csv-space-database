@@ -13,7 +13,6 @@ sourcedialog::~sourcedialog()
     delete ui;
 }
 
-//func. to close this window in order to return to view window
 void sourcedialog::on_pushButton_clicked()
 {
     this->close();

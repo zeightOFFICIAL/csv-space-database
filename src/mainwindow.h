@@ -40,11 +40,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    //two vars. to correctly and with no difficulties manipulate csv-database in view-window
     int wideindex = 0;
     QStringList widelist;
 
-    //internal functions - mostly tools which works only as the backbone for representing data
     void SetLabels();
     void ClearLabels();
 };

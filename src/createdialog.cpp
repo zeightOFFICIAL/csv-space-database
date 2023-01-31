@@ -300,7 +300,7 @@ void CreateDialog::updateTextWhole(QString string)
 void CreateDialog::on_popSlider_valueChanged(int value)
 {
     //we have slider on creationform which utterly arranges the value. it might be more quick and cozy
-    ui->populationField->setText(QString::number(value*10));
+    ui->populationField->setText(QString::number(value)+"0");
 }
 
 void CreateDialog::on_tempSlider_valueChanged(int value)
