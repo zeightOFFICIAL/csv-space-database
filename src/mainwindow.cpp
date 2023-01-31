@@ -210,7 +210,7 @@ void MainWindow::ClearLabels()
 void MainWindow::on_actionShow_about_triggered()
 {
     //simple open new dialog (about dialog)
-    aboutdialog aboutdialog;
+    AboutDialog aboutdialog;
     //so has forced focus while mainwindow is disabled
     aboutdialog.setModal(true);
     //execution of dialog
@@ -224,7 +224,7 @@ void MainWindow::on_actionOpenEdit_triggered()
     ClearLabels();
     ui->buttonNextPlanet->setEnabled(0);
     ui->buttonPrevPlanet->setEnabled(0);
-    editdialog editdialog;
+    EditDialog editdialog;
     editdialog.setModal(true);
     editdialog.exec();
 }
@@ -236,7 +236,7 @@ void MainWindow::on_actionCreate_triggered()
     ClearLabels();
     ui->buttonNextPlanet->setEnabled(0);
     ui->buttonPrevPlanet->setEnabled(0);
-    createdialog createdialog;
+    CreateDialog createdialog;
     createdialog.setModal(true);
     createdialog.exec();
 }
@@ -254,7 +254,7 @@ void MainWindow::on_actionShow_sources_triggered()
 void MainWindow::on_actionLook_triggered()
 {
     QString string = widelist.join("");
-    csvview csvview(this,string);
+    CsvView csvview(this,string);
     csvview.setModal(true);
     csvview.exec();
 }

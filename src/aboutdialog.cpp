@@ -1,20 +1,27 @@
+#include <QFontDatabase>
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-aboutdialog::aboutdialog(QWidget *parent) :
+AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::aboutdialog)
+    ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
+
+    int id = QFontDatabase::addApplicationFont(":/fonts/volume1/venus_uprising.otf");
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont f(family);
+    f.setPointSize(16);
+    f.setBold(false);
+    ui->mainText->setFont(f);
 }
 
-aboutdialog::~aboutdialog()
+AboutDialog::~AboutDialog()
 {
     delete ui;
 }
 
-//func. to close this window in order to return to view window
-void aboutdialog::on_pushButton_clicked()
+void AboutDialog::on_closeButton_clicked()
 {
     this->close();
 }

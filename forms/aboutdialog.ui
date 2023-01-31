@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>aboutdialog</class>
- <widget class="QDialog" name="aboutdialog">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,8 +26,8 @@
    <string>About</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/pack1.qrc">
-    <normaloff>:/pack1/iconabout.png</normaloff>:/pack1/iconabout.png</iconset>
+   <iconset resource="../res/package.qrc">
+    <normaloff>:/images/volume1/icon.ico</normaloff>:/images/volume1/icon.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -35,7 +35,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="VSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -51,7 +51,7 @@
         </spacer>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
+        <spacer name="leftHSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -67,7 +67,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="centerImage">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -78,7 +78,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/planetDefault2.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/planetDefault2.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -86,7 +86,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
+        <spacer name="rightHSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -104,17 +104,16 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="mainText">
        <property name="font">
         <font>
          <family>Venus Rising</family>
          <pointsize>16</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
        <property name="text">
-        <string>version 1.1</string>
+        <string>version 1.15</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -122,7 +121,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="secText">
        <property name="font">
         <font>
          <family>Arial</family>
@@ -130,7 +129,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Created by Artemii &quot;Zeight&quot; Saganenko             Designed by Artemii &quot;Zeight&quot; Saganenko                        IKPI-04 (2020)                                                             Instructed by Olga Borisovna Petrova                           SPBSUT                                                                                          Faculty of Infocommunication Networks and Systems             Variant 20 (Solar stellar objects)                                       2021 november</string>
+        <string>Created by Artemii &quot;Zeight&quot; Saganenko             Designed by Artemii &quot;Zeight&quot; Saganenko                        IKPI-04 (2020-2023)                                                             Instructed by Olga Borisovna Petrova                           SPBSUT                                                                                          Faculty of Infocommunication Networks and Systems             Variant 20 (Solar stellar objects)                                      created 2020 revisioned 2023</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -141,7 +140,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>Close</string>
        </property>
@@ -152,8 +151,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../res/pack1.qrc"/>
-  <include location="../res/pack2.qrc"/>
+  <include location="../res/package.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -4,22 +4,23 @@
 #include <QDialog>
 
 namespace Ui {
-class aboutdialog;
+class AboutDialog;
 }
 
-class aboutdialog : public QDialog
+class AboutDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit aboutdialog(QWidget *parent = nullptr);
-    ~aboutdialog();
+    explicit AboutDialog(QWidget *parent = nullptr);
+    ~AboutDialog();
 
 private slots:
-    void on_pushButton_clicked();
+    // func. Close dialog window, proceed to MainWindow (ViewWindow)
+    void on_closeButton_clicked();
 
 private:
-    Ui::aboutdialog *ui;
+    Ui::AboutDialog *ui;
 };
 
 #endif // ABOUTDIALOG_H

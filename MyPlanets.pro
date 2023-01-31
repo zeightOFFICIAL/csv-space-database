@@ -40,7 +40,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    res/pack1.qrc \
-    res/pack2.qrc
+    res/package.qrc \
+    test/demo_package.qrc
 
 DISTFILES +=

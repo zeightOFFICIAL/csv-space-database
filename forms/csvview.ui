@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>csvview</class>
- <widget class="QDialog" name="csvview">
+ <class>CsvView</class>
+ <widget class="QDialog" name="CsvView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,11 +17,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>CSV view (united)</string>
+   <string>MyPlanets CSV view (united)</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/pack1.qrc">
-    <normaloff>:/pack1/iconsettings.png</normaloff>:/pack1/iconsettings.png</iconset>
+   <iconset resource="../res/package.qrc">
+    <normaloff>:/images/volume1/iconsettings.png</normaloff>:/images/volume1/iconsettings.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
@@ -30,7 +30,7 @@
       <widget class="QTextBrowser" name="textBrowser"/>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>Close</string>
        </property>
@@ -41,7 +41,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../res/pack1.qrc"/>
+  <include location="../res/package.qrc"/>
  </resources>
  <connections/>
 </ui>

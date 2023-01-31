@@ -15,14 +15,14 @@
 //C++ STL library
 #include <vector>
 
-editdialog::editdialog(QWidget *parent) :
+EditDialog::EditDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::editdialog)
+    ui(new Ui::EditDialog)
 {
     ui->setupUi(this);
 }
 
-editdialog::~editdialog()
+EditDialog::~EditDialog()
 {
     delete ui;
 }
@@ -31,7 +31,7 @@ editdialog::~editdialog()
     by not proper testing.  */
 
 //func. to clear all the fields simple ====================================================================================================
-void editdialog::ClearLabels()
+void EditDialog::ClearLabels()
 {
     ui->NameField->setText("");
     ui->TypeField->setText("");
@@ -46,7 +46,7 @@ void editdialog::ClearLabels()
 }
 
 //func. to set all the parameters to labels ===============================================================================================
-void editdialog::SetLabels()
+void EditDialog::SetLabels()
 {
     QString thisstring = MainVector[localwideindex];
     QStringList ThisVector = thisstring.split(";");
@@ -64,7 +64,7 @@ void editdialog::SetLabels()
 }
 
 //func. to open new file ==================================================================================================================
-void editdialog::on_OpenButton_clicked()
+void EditDialog::on_openDBButton_clicked()
 {
     //if file wasn't saved ask whether user wants to save it or proceed saving not
     if(unsaved == false)
@@ -74,7 +74,7 @@ void editdialog::on_OpenButton_clicked()
         //if the answer is yes then this currently unsaved database will be deleted!
         //want to save? - initialize on_SaveButton_clicked();
         if (reply == QMessageBox::Yes)
-            on_SaveButton_clicked();
+            on_saveDBButton_clicked();
         else
             return;
     }
@@ -135,7 +135,7 @@ void editdialog::on_OpenButton_clicked()
 }
 
 //func. to save changes OF THIS PARTICULAR OBJECT - might be changes or completely new object =============================================
-void editdialog::on_SaveChangesButton_clicked()
+void EditDialog::on_saveChangesButton_clicked()
 {
     QString localline;
     if(ui->NameField->text().isEmpty() || ui->TypeField->text().isEmpty() || ui->SubField->text().isEmpty()
@@ -184,14 +184,14 @@ void editdialog::on_SaveChangesButton_clicked()
 }
 
 //func. to delete THIS CURRENLY CHOSEN OBJECT from list ===================================================================================
-void editdialog::on_DeleteThisButton_clicked()
+void EditDialog::on_DeleteThisButton_clicked()
 {
     MainVector.erase(MainVector.begin()+localwideindex);
     ui->mainbox->removeItem(localwideindex);
 }
 
 //func. on the contrary to view or create forms this is the only way to navigate through elements =========================================
-void editdialog::on_mainbox_currentIndexChanged(int index)
+void EditDialog::on_mainbox_currentIndexChanged(int index)
 {
     if(MainVector.size()==0)
         ui->DeleteThisButton->setEnabled(0);
@@ -216,7 +216,7 @@ void editdialog::on_mainbox_currentIndexChanged(int index)
 }
 
 //func. to save the file into the same place as the same file that was opened =============================================================
-void editdialog::on_SaveButton_clicked()
+void EditDialog::on_saveDBButton_clicked()
 {
     QFile LocalFile(OpenFile_Path);
     if(!LocalFile.open(QFile::WriteOnly|QFile::Truncate))
@@ -236,7 +236,7 @@ void editdialog::on_SaveButton_clicked()
 }
 
 //func. to merge this current database with another one ===================================================================================
-void editdialog::on_mergeButton_clicked()
+void EditDialog::on_mergeButton_clicked()
 {
     QString SecondOpenFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
     QString SecondOpenFile_Path = QFileDialog::getOpenFileName(this,"Open a file","/",SecondOpenFile_Filter);

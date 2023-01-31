@@ -1,188 +1,166 @@
-//Saganenko AV IKPI 04
-//var. 20
-//built with MinGw x64
-//createdialog.cpp
-
-//parent forms
 #include "createdialog.h"
 #include "ui_createdialog.h"
 
-//internal container
 #include "queue.h"
 
-//Qt libraries
 #include <QMessageBox>
 #include <QFileDialog>
 
-createdialog::createdialog(QWidget *parent) :
+CreateDialog::CreateDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::createdialog)
+    ui(new Ui::CreateDialog)
 {
     ui->setupUi(this);
 }
 
-createdialog::~createdialog()
+CreateDialog::~CreateDialog()
 {
     delete ui;
 }
 
-//func. to create a new database with a check whether the old one was saved ===============================================================
-void createdialog::on_createButton_clicked()
+void CreateDialog::on_createNewDBButton_clicked()
 {
     //check if textbrowser is empty - this is a sign that it WAS CLOSED or SAVED
-    if (!ui->textWhole->toPlainText().isEmpty())
+    if (!ui->staticLabel2->toPlainText().isEmpty())
     {
-        //if not - call dialogue window QMessageBox::questuion
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to proceed and delete this database?",QMessageBox::Yes | QMessageBox::No);
-        //if the answer is yes then this currently unsaved database will be deleted!
+        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to proceed and DELETE this database?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
            totalWipe();
-        //otherwise return to editing
         else return;
     }
 }
 
-//func. to save recently created database =================================================================================================
-void createdialog::on_saveasButton_clicked()
+void CreateDialog::on_saveDBButton_clicked()
 {
-    if (EditLine.size()>0)
+    if (containContent.size()>0)
     {
         //stage 1 - open SaveFileDialog (step 5.1)
-        QString SaveFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
-        QString SaveFile_Path = QFileDialog::getSaveFileName(this,"Save file","/",SaveFile_Filter);
+        QString saveFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
+        QString saveFilePath = QFileDialog::getSaveFileName(this,"Save file","/",saveFileFilter);
 
         //stage 2 - choose file by the path (step 5.2)
-        QFile File(SaveFile_Path);
+        QFile file(saveFilePath);
 
         //check whether the file is avaiable
-        if(!File.open(QFile::WriteOnly | QFile::Text))
+        if(!file.open(QFile::WriteOnly | QFile::Text))
         {
-            QMessageBox::warning(this,"Error","SaveAs::The file wasn't chosen!\nCode ER:1");
-            SaveFile_Path=NULL;
+            QMessageBox::warning(this,"Warning","SaveAs::The file wasn't chosen!\n(Code ER:1)");
+            saveFilePath=NULL;
             return;
         }
 
         //stage 3 - writing the info into the file (step 5.3)
-        QTextStream out(&File);
+        QTextStream out(&file);
         for (size_t i = 0; i<locallength;i++)
         {
-            QString ThisLine = EditLine.getSpecific(i);
-            out << ThisLine << "\n";
+            QString thisLine = containContent.getSpecific(i);
+            out << thisLine << "\n";
         }
 
         //stage 4 - closing the file and wipe all the information (step 5.4)
-        File.close();
+        file.close();
         totalWipe();
     }
-    else QMessageBox::warning(this,"Error","SaveAs::Database is empty!\nCode ER:6");
+    else QMessageBox::warning(this,"Warning","SaveAs::Database is empty!\n(Code ER:6)");
 }
 
-//func. to add object to database using queue container ===================================================================================
-void createdialog::on_addObject_clicked()
+void CreateDialog::on_addObject_clicked()
 {
     //stage 1 - check if fields are not empty - if so, set default param. (step 6.1)
-    QString localline;
-    if(ui->nameField->text().isEmpty() || ui->TypeList->currentText().isEmpty() || ui->SubtypeList->currentText().isEmpty()
-            || ui->RadiusField->text().isEmpty() || ui->WeightField->text().isEmpty() || ui->MoonsField->text().isEmpty() ||
-            ui->PopulationField->text().isEmpty() || ui->RotationField->text().isEmpty() || ui->TemperatureField->text().isEmpty() ||
-            ui->ImageField->text().isEmpty())
+    QString localLine;
+    if(ui->nameField->text().isEmpty() || ui->typeList->currentText().isEmpty() || ui->subtypeList->currentText().isEmpty()
+            || ui->radiusField->text().isEmpty() || ui->weightField->text().isEmpty() || ui->moonsField->text().isEmpty() ||
+            ui->populationField->text().isEmpty() || ui->rotationField->text().isEmpty() || ui->temperatureField->text().isEmpty() ||
+            ui->imageField->text().isEmpty())
     {
-        QMessageBox::warning(this,"Warning","ActionOpen::Some fields are empty!\nCode WR:ADD");
+        QMessageBox::warning(this,"Warning","AddObject::Some fields are empty!\n(Code WR:ADD)");
         if(ui->nameField->text().isEmpty())
             ui->nameField->setText("Unknown");
-        if(ui->TypeList->currentText().isEmpty())
-            ui->TypeList->setCurrentIndex(10);
-        if(ui->SubtypeList->currentText().isEmpty())
-            ui->SubtypeList->setCurrentText("Unknown");
-        if(ui->RadiusField->text().isEmpty())
-            ui->RadiusField->setText("Unknown");
-        if(ui->WeightField->text().isEmpty())
-            ui->WeightField->setText("Unknown");
-        if(ui->MoonsField->text().isEmpty())
-            ui->MoonsField->setText("Unknown");
-        if(ui->PopulationField->text().isEmpty())
-            ui->PopulationField->setText("Unknown");
-        if(ui->RotationField->text().isEmpty())
-            ui->RotationField->setText("Unknown");
-        if(ui->TemperatureField->text().isEmpty())
-            ui->TemperatureField->setText("Unknown");
-        if(ui->ImageField->text().isEmpty())
-            ui->ImageField->setText("none");
+        if(ui->typeList->currentText().isEmpty())
+            ui->typeList->setCurrentIndex(10);
+        if(ui->subtypeList->currentText().isEmpty())
+            ui->subtypeList->setCurrentText("Unknown");
+        if(ui->radiusField->text().isEmpty())
+            ui->radiusField->setText("Unknown");
+        if(ui->weightField->text().isEmpty())
+            ui->weightField->setText("Unknown");
+        if(ui->moonsField->text().isEmpty())
+            ui->moonsField->setText("Unknown");
+        if(ui->populationField->text().isEmpty())
+            ui->populationField->setText("Unknown");
+        if(ui->rotationField->text().isEmpty())
+            ui->rotationField->setText("Unknown");
+        if(ui->temperatureField->text().isEmpty())
+            ui->temperatureField->setText("Unknown");
+        if(ui->imageField->text().isEmpty())
+            ui->imageField->setText("none");
     }
 
-    //stage 2 - create a line consisting of these parametrs (step 6.2)
-    localline=localline+ui->nameField->text()+";"+ui->TypeList->currentText()+";"+ui->SubtypeList->currentText()+
-            ";"+ui->RadiusField->text()+";"+ui->WeightField->text()+";"+ui->MoonsField->text()+";"+ui->PopulationField->text()+";"+
-            ui->RotationField->text()+";"+ui->TemperatureField->text()+";"+ui->ImageField->text();
+    //stage 2 - create a line consisting of these parameters (step 6.2)
+    localLine=localLine+ui->nameField->text()+";"+ui->typeList->currentText()+";"+ui->subtypeList->currentText()+
+            ";"+ui->radiusField->text()+";"+ui->weightField->text()+";"+ui->moonsField->text()+";"+ui->populationField->text()+";"+
+            ui->rotationField->text()+";"+ui->temperatureField->text()+";"+ui->imageField->text();
 
     //stage 3 - write lines into the queue container (step 6.3)
-    EditLine.push(localline);
+    containContent.push(localLine);
     //increasing total length;
     locallength++;
     //update textbrowser
-    updateTextWhole(localline);
+    updateTextWhole(localLine);
     clearLabels();
 }
 
-//func. to clear name fields ==============================================================================================================
-void createdialog::on_clearFields_clicked()
+void CreateDialog::on_clearFields_clicked()
 {
-    clearLabels(); //as simple as remove all field's data
+    clearLabels();
 }
 
-//func. to save and close =================================================================================================================
-void createdialog::on_ApplyButton_clicked()
+void CreateDialog::on_applyButton_clicked()
 {
     //so if we need to firstly save then close is calls the function to save database and closes the app.
-    on_saveasButton_clicked();
-    //there is a nasty bug -- i'm to tired to fix it
+    on_saveDBButton_clicked();
     this->close();
 }
 
-//func. to close ==========================================================================================================================
-void createdialog::on_CloseButton_clicked()
+void CreateDialog::on_closeButton_clicked()
 {
     //if there is no file inside the textbox -> so there is no database which is being edit.
-    if (!ui->textWhole->toPlainText().isEmpty())
+    if (!ui->staticLabel2->toPlainText().isEmpty())
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to proceed and delete the progress?",QMessageBox::Yes | QMessageBox::No);
+        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to save the progress?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
         {
-           on_saveasButton_clicked();
+           on_saveDBButton_clicked();
            this->close();
            return;
         }
-        //otherwise return to editing
     }
-    //if not close this all to shit
     this->close();
 }
 
-//func. to clear name fields ==============================================================================================================
-void createdialog::clearLabels()
+void CreateDialog::clearLabels()
 {
     ui->nameField->clear();
-    ui->RotationField->clear();
-    ui->PopulationField->clear();
-    ui->TemperatureField->clear();
-    ui->TempSlider->setValue(0);
-    ui->PopSlider->setValue(0);
-    ui->RotationField->clear();
-    ui->ImageField->clear();
-    ui->SubtypeList->clear();
-    ui->TypeList->setCurrentIndex(0);
-    ui->RadiusField->clear();
-    ui->MoonsField->clear();
-    ui->WeightField->clear();
+    ui->rotationField->clear();
+    ui->populationField->clear();
+    ui->temperatureField->clear();
+    ui->tempSlider->setValue(0);
+    ui->popSlider->setValue(0);
+    ui->rotationField->clear();
+    ui->imageField->clear();
+    ui->subtypeList->clear();
+    ui->typeList->setCurrentIndex(0);
+    ui->radiusField->clear();
+    ui->moonsField->clear();
+    ui->weightField->clear();
 }
 
-//func. to properly place subtype list depending on type list =============================================================================
-void createdialog::on_TypeList_currentIndexChanged(int index)
+void CreateDialog::on_typeList_currentIndexChanged(int index)
 {
     //so to arrange the subtype list obiously if type changes so do the subtype this is VERY plain approach nevertheless it works perfectly
-    QComboBox *sl = ui->SubtypeList;
+    QComboBox *sl = ui->subtypeList;
 
     if(index==0)
     {
@@ -275,8 +253,7 @@ void createdialog::on_TypeList_currentIndexChanged(int index)
         sl->addItem("Cargo ship");
         sl->addItem("Unknown");
     }
-    if(index==9)
-    {
+    if (index==9){
         sl->clear();
         sl->addItem("Stellar");
         sl->addItem("Intermediate");
@@ -291,51 +268,43 @@ void createdialog::on_TypeList_currentIndexChanged(int index)
     }
 }
 
-//func. to change value depending on slider ===============================================================================================
-void createdialog::on_PopSlider_sliderMoved(int position)
+void CreateDialog::on_chooseFile_clicked()
 {
-    //we have slider on creationform which utterly arranges the value. it might be more quick and cozy
-    ui->PopulationField->setText(QString::number(position)+"0"); //slider has limit of 1000000000 so I need to increase it (this is population after all)
-}
-
-//func. to change value depending on slider ===============================================================================================
-void createdialog::on_TempSlider_sliderMoved(int position)
-{
-    //the same as before - only difference is that Temperature is limited within -273 .. 10000 great!
-    ui->TemperatureField->setText(QString::number(position)+"C");
-}
-
-//func. to navigate and chose image for current object ====================================================================================
-void createdialog::on_chooseFile_clicked()
-{
-    //we actually needed to add such a way to improve undersantding and simplify the process of chosing the right image
-    ui->ImageField->clear();
-    //pretty simple - like opening csv(txt) file.
+    ui->imageField->clear();
     QString OpenFile_Filter = "PNG File (*.png) ;; Image File (*.jpeg *.jpg *.png *.bmp *.bwm5)";
     QString OpenFile_Path = QFileDialog::getOpenFileName(this,"Select a file","/",OpenFile_Filter);
     QFileInfo ThisFile(OpenFile_Path);
     if(!ThisFile.exists())
     {
-        QMessageBox::warning(this,"Error","ChoseFile::File does not exist!\nCode ER:IMAGE");
+        QMessageBox::warning(this,"Warning","ChoseFile::File does not exist!\n(Code ER:IMAGE)");
         return;
     }
-    ui->ImageField->setText(OpenFile_Path);
+    ui->imageField->setText(OpenFile_Path);
 }
 
-//func. to clear everything data from form ================================================================================================
-void createdialog::totalWipe()
+void CreateDialog::totalWipe()
 {
-    //CLEAR EVERYTHING - JUST INTO ABYSS
     clearLabels();
-    ui->textWhole->clear();
+    ui->staticLabel2->clear();
     locallength = 0;
-    EditLine.clearAll();
+    containContent.clearAll();
 }
 
-//func. to update information in textbrowser ==============================================================================================
-void createdialog::updateTextWhole(QString string)
+void CreateDialog::updateTextWhole(QString string)
 {
-    ui->textWhole->moveCursor(QTextCursor::End);
-    ui->textWhole->insertPlainText(string+"\n");
-    ui->textWhole->moveCursor(QTextCursor::End);
+    ui->staticLabel2->moveCursor(QTextCursor::End);
+    ui->staticLabel2->insertPlainText(string+"\n");
+    ui->staticLabel2->moveCursor(QTextCursor::End);
+}
+
+void CreateDialog::on_popSlider_valueChanged(int value)
+{
+    //we have slider on creationform which utterly arranges the value. it might be more quick and cozy
+    ui->populationField->setText(QString::number(value*10));
+}
+
+void CreateDialog::on_tempSlider_valueChanged(int value)
+{
+    //the same as before - only difference is that Temperature is limited within -273 .. 10000 great!
+    ui->temperatureField->setText(QString::number(value)+"C");
 }

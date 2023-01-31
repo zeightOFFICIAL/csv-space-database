@@ -1,20 +1,20 @@
 #include "csvview.h"
 #include "ui_csvview.h"
 
-csvview::csvview(QWidget *parent,QString line):
+CsvView::CsvView(QWidget *parent,QString line):
     QDialog(parent),
-    ui(new Ui::csvview)
+    ui(new Ui::CsvView)
 {
     ui->setupUi(this);
     ui->textBrowser->setPlainText(line);
 }
 
-csvview::~csvview()
+CsvView::~CsvView()
 {
     delete ui;
 }
 
-void csvview::on_pushButton_clicked()
+void CsvView::on_closeButton_clicked()
 {
     this->close();
 }

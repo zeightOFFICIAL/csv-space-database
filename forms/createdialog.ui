@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>createdialog</class>
- <widget class="QDialog" name="createdialog">
+ <class>CreateDialog</class>
+ <widget class="QDialog" name="CreateDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>507</height>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MyPlanets CreateMode</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/pack2.qrc">
-    <normaloff>:/pack2/iconplus.png</normaloff>:/pack2/iconplus.png</iconset>
+   <iconset resource="../res/package.qrc">
+    <normaloff>:/images/volume1/icon.ico</normaloff>:/images/volume1/icon.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="mainVerticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <layout class="QHBoxLayout" name="horizontalLayout4">
        <item>
-        <widget class="QPushButton" name="createButton">
+        <widget class="QPushButton" name="createNewDBButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -39,8 +39,8 @@
           <string>Create</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/pack1.qrc">
-           <normaloff>:/pack1/iconedit.png</normaloff>:/pack1/iconedit.png</iconset>
+          <iconset resource="../res/package.qrc">
+           <normaloff>:/images/volume1/iconedit.png</normaloff>:/images/volume1/iconedit.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -51,7 +51,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="saveasButton">
+        <widget class="QPushButton" name="saveDBButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -67,8 +67,8 @@
           <string>Save As</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/pack1.qrc">
-           <normaloff>:/pack1/iconview.png</normaloff>:/pack1/iconview.png</iconset>
+          <iconset resource="../res/package.qrc">
+           <normaloff>:/images/volume1/iconsave.png</normaloff>:/images/volume1/iconsave.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -81,7 +81,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QHBoxLayout" name="horizontalLayout3">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
@@ -248,7 +248,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="TypeList">
+          <widget class="QComboBox" name="typeList">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -315,7 +315,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="SubtypeList">
+          <widget class="QComboBox" name="subtypeList">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -324,7 +324,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="RadiusField">
+          <widget class="QLineEdit" name="radiusField">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -336,7 +336,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="WeightField">
+          <widget class="QLineEdit" name="weightField">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -345,7 +345,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="MoonsField">
+          <widget class="QLineEdit" name="moonsField">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -356,7 +356,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QLineEdit" name="PopulationField">
+            <widget class="QLineEdit" name="populationField">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
@@ -365,7 +365,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="PopSlider">
+            <widget class="QSlider" name="popSlider">
              <property name="maximum">
               <number>1000000000</number>
              </property>
@@ -377,7 +377,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="RotationField">
+          <widget class="QLineEdit" name="rotationField">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -388,7 +388,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QLineEdit" name="TemperatureField">
+            <widget class="QLineEdit" name="temperatureField">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
@@ -397,7 +397,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="TempSlider">
+            <widget class="QSlider" name="tempSlider">
              <property name="minimum">
               <number>-273</number>
              </property>
@@ -414,7 +414,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QLineEdit" name="ImageField"/>
+            <widget class="QLineEdit" name="imageField"/>
            </item>
            <item>
             <widget class="QPushButton" name="chooseFile">
@@ -435,8 +435,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../res/pack2.qrc">
-             <normaloff>:/pack2/iconplus.png</normaloff>:/pack2/iconplus.png</iconset>
+            <iconset resource="../res/package.qrc">
+             <normaloff>:/images/volume1/iconplus.png</normaloff>:/images/volume1/iconplus.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -455,8 +455,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../res/pack2.qrc">
-             <normaloff>:/pack2/iconminus.png</normaloff>:/pack2/iconminus.png</iconset>
+            <iconset resource="../res/package.qrc">
+             <normaloff>:/images/volume1/iconminus.png</normaloff>:/images/volume1/iconminus.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -474,9 +474,9 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <layout class="QHBoxLayout" name="horizontalLayout1">
        <item>
-        <widget class="QLabel" name="filename">
+        <widget class="QLabel" name="staticLabel1">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -493,33 +493,33 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout2">
        <item>
-        <widget class="QTextBrowser" name="textWhole"/>
+        <widget class="QTextBrowser" name="staticLabel2"/>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout5">
        <item>
-        <widget class="QPushButton" name="ApplyButton">
+        <widget class="QPushButton" name="applyButton">
          <property name="text">
           <string>Apply</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/pack2.qrc">
-           <normaloff>:/pack2/iconok.png</normaloff>:/pack2/iconok.png</iconset>
+          <iconset resource="../res/package.qrc">
+           <normaloff>:/images/volume1/iconok.png</normaloff>:/images/volume1/iconok.png</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="CloseButton">
+        <widget class="QPushButton" name="closeButton">
          <property name="text">
           <string>Close</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/pack2.qrc">
-           <normaloff>:/pack2/iconcancel.png</normaloff>:/pack2/iconcancel.png</iconset>
+          <iconset resource="../res/package.qrc">
+           <normaloff>:/images/volume1/iconcancel.png</normaloff>:/images/volume1/iconcancel.png</iconset>
          </property>
         </widget>
        </item>
@@ -530,8 +530,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../res/pack2.qrc"/>
-  <include location="../res/pack1.qrc"/>
+  <include location="../res/package.qrc"/>
  </resources>
  <connections/>
 </ui>

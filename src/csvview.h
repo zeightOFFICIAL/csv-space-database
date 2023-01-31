@@ -4,22 +4,23 @@
 #include <QDialog>
 
 namespace Ui {
-class csvview;
+class CsvView;
 }
 
-class csvview : public QDialog
+class CsvView : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit csvview(QWidget *parent = nullptr, QString list = "");
-    ~csvview();
+    explicit CsvView(QWidget *parent = nullptr, QString list = "");
+    ~CsvView();
 
 private slots:
-    void on_pushButton_clicked();
+    // func. Close dialog window, proceed to MainWindow (ViewWindow)
+    void on_closeButton_clicked();
 
 private:
-    Ui::csvview *ui;
+    Ui::CsvView *ui;
 };
 
 #endif // CSVVIEW_H

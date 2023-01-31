@@ -4,32 +4,32 @@
 #include <QDialog>
 
 namespace Ui {
-class editdialog;
+class EditDialog;
 }
 
-class editdialog : public QDialog
+class EditDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit editdialog(QWidget *parent = nullptr);
-    ~editdialog();
+    explicit EditDialog(QWidget *parent = nullptr);
+    ~EditDialog();
 
 private slots:
     //funcs. to manipulate files
-    void on_OpenButton_clicked();
-    void on_SaveButton_clicked();
+    void on_openDBButton_clicked();
+    void on_saveDBButton_clicked();
     void on_mergeButton_clicked();
 
     //funcs. to manipulate objects
-    void on_SaveChangesButton_clicked();
+    void on_saveChangesButton_clicked();
     void on_DeleteThisButton_clicked();
 
     //crucial navigator
     void on_mainbox_currentIndexChanged(int index);
 
 private:
-    Ui::editdialog *ui;
+    Ui::EditDialog *ui;
 
     //extra tools
     void ClearLabels();
