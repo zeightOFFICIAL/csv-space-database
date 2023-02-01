@@ -26,8 +26,8 @@
    <string>MyPlanets</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/pack1/icon.ico</normaloff>:/pack1/icon.ico</iconset>
+   <iconset resource="../res/package.qrc">
+    <normaloff>:/images/volume1/icon.ico</normaloff>:/images/volume1/icon.ico</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -596,6 +596,10 @@
           <property name="text">
            <string>Previous</string>
           </property>
+          <property name="icon">
+           <iconset resource="../res/package.qrc">
+            <normaloff>:/images/volume1/iconprev.png</normaloff>:/images/volume1/iconprev.png</iconset>
+          </property>
          </widget>
         </item>
         <item>
@@ -603,8 +607,27 @@
           <property name="enabled">
            <bool>false</bool>
           </property>
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
           <property name="text">
            <string>Next</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../res/package.qrc">
+            <normaloff>:/images/volume1/iconnext.png</normaloff>:/images/volume1/iconnext.png</iconset>
+          </property>
+          <property name="autoRepeat">
+           <bool>false</bool>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -670,8 +693,8 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="openMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconopen.png</normaloff>:/pack1/iconopen.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconopen.png</normaloff>:/images/volume1/iconopen.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -679,8 +702,8 @@
   </action>
   <action name="closeMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconclose.png</normaloff>:/pack1/iconclose.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconclose.png</normaloff>:/images/volume1/iconclose.png</iconset>
    </property>
    <property name="text">
     <string>Close</string>
@@ -688,8 +711,8 @@
   </action>
   <action name="openEditMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconopen.png</normaloff>:/pack1/iconopen.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/dc.png</normaloff>:/images/volume1/dc.png</iconset>
    </property>
    <property name="text">
     <string>Edit</string>
@@ -697,8 +720,8 @@
   </action>
   <action name="openCreateMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconedit.png</normaloff>:/pack1/iconedit.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconedit.png</normaloff>:/images/volume1/iconedit.png</iconset>
    </property>
    <property name="text">
     <string>Create</string>
@@ -706,8 +729,8 @@
   </action>
   <action name="exitMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconexit.png</normaloff>:/pack1/iconexit.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconexit.png</normaloff>:/images/volume1/iconexit.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -715,8 +738,8 @@
   </action>
   <action name="showAboutMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconabout.png</normaloff>:/pack1/iconabout.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconabout.png</normaloff>:/images/volume1/iconabout.png</iconset>
    </property>
    <property name="text">
     <string>Show about</string>
@@ -724,8 +747,8 @@
   </action>
   <action name="showSourcesMenuBar">
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/icon.ico</normaloff>:/pack1/icon.ico</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconmark.png</normaloff>:/images/volume1/iconmark.png</iconset>
    </property>
    <property name="text">
     <string>Show resources</string>
@@ -736,8 +759,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>:/pack1/iconview.png</normaloff>:/pack1/iconview.png</iconset>
+    <iconset resource="../res/package.qrc">
+     <normaloff>:/images/volume1/iconview.png</normaloff>:/images/volume1/iconview.png</iconset>
    </property>
    <property name="text">
     <string>Look CSV file</string>

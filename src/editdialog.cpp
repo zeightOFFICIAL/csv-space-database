@@ -82,7 +82,11 @@ void EditDialog::on_openDBButton_clicked()
             return;
         }
         QTextStream in(&file);
-
+        if (in.readLine().count(";") < 9) {
+            openFilePathNew=NULL;
+            file.close();
+            return;
+        }
         totalWipe();
         while(!in.atEnd())
         {
@@ -232,6 +236,7 @@ void EditDialog::on_saveDBButton_clicked()
     }
     localFile.close();
     QMessageBox::information(this,"Success","Database saved!");
+    this->close();
 }
 
 void EditDialog::on_mergeButton_clicked()
@@ -239,16 +244,19 @@ void EditDialog::on_mergeButton_clicked()
     QString secondOpenFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
     QString secondOpenFilePath = QFileDialog::getOpenFileName(this,"Open a file","/",secondOpenFileFilter);
     QFile file(secondOpenFilePath);
+
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QMessageBox::warning(this,"Warning","ActionOpen::File wasn't chosen!\n(Code ER:1)");
-        openFilePath=NULL;
+        QMessageBox::warning(this,"Warning","ActionOpenFile::The file wasn't chosen!\n(Code ER:1)");
+        secondOpenFilePath=NULL;
+        file.close();
         return;
     }
     QFileInfo thisFile(secondOpenFilePath);
     if (thisFile.suffix()!="txt" && thisFile.suffix()!="csv")
     {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
-        openFilePath=NULL;
+        secondOpenFilePath=NULL;
+        file.close();
         return;   }
     QTextStream in(&file);
     int i=0;
@@ -256,13 +264,15 @@ void EditDialog::on_mergeButton_clicked()
     {
         QString fileLine = in.readLine();
         QStringList lineList = fileLine.split(";");
+
         if (lineList.length()<10 || lineList.length()%10!=0)
             {
-            QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
-            file.close();
-            secondOpenFilePath=NULL;
             fileLine=NULL;
             lineList.clear();
+            mainContainer.clear();
+            QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
+            secondOpenFilePath=NULL;
+            file.close();
             return;
             }
         if (lineList.contains(" ") || lineList.contains(""))

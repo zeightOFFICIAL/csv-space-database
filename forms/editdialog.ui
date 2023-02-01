@@ -480,7 +480,7 @@
        <item>
         <widget class="QPushButton" name="saveDBButton">
          <property name="text">
-          <string>Save File</string>
+          <string>Save File And Close</string>
          </property>
          <property name="icon">
           <iconset resource="../res/package.qrc">
@@ -490,6 +490,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="mergeButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Merge With ...</string>
          </property>

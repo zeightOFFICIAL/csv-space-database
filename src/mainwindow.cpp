@@ -54,7 +54,11 @@ void MainWindow::on_openMenuBar_triggered()
             return;
         }
         QTextStream in(&file);
-
+        if (in.readLine().count(";") < 9) {
+            openFilePath=NULL;
+            file.close();
+            return;
+        }
         //stage 3 - reading file. (step 1.3)
         while(!in.atEnd())
         {

@@ -26,7 +26,7 @@ private slots:
     void on_addObjectButton_clicked();
     void on_clearFieldsButton_clicked();
 
-    //funcs. Manage windows. Save database and close or simply close create window
+    //funcs. Manage windows. Save database and close, or simply close create window
     void on_applyButton_clicked();
     void on_closeButton_clicked();
 
