@@ -20,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     int id = QFontDatabase::addApplicationFont(":/fonts/volume1/venus_uprising.otf");
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont f(family);
-    f.setPointSize(16);
-    f.setBold(false);
 }
 
 MainWindow::~MainWindow()
@@ -33,170 +31,171 @@ MainWindow::~MainWindow()
     name;type;subtype;radius;weight;moons;population;rotation;temperature;image
     whatever deviation met will result in program complete collapse (now it's prevented)    */
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::on_openMenuBar_triggered()
 {
-    using namespace std;
     //stage 1 - open file dialog and get the name, full path. (step 1.1)
-    ClearLabels();
+    clearLabels();
     ui->objectsList->clear();
-    QString OpenFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
-    QString OpenFile_Path = QFileDialog::getOpenFileName(this,"Open a file","/",OpenFile_Filter);
+    QString openFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
+    QString openFilePath = QFileDialog::getOpenFileName(this,"Open a file","/",openFileFilter);
 
     //stage 2 - opening file. (step 1.2)
-    QFile File(OpenFile_Path);
+    QFile file(openFilePath);
     //check if file was actually opened
-    if(!File.open(QFile::ReadOnly | QFile::Text))
+    if(!file.open(QFile::ReadOnly | QFile::Text))
     {   QMessageBox::warning(this,"Error","ActionOpenFile::The file wasn't chosen!!\nCode ER:1");
-        OpenFile_Path=NULL;
-        return;    }
+        openFilePath=NULL;
+        return;
+    }
     else
     {
-        QFileInfo ThisFile(OpenFile_Path);
+        QFileInfo ThisFile(openFilePath);
         //check file format if it isn't txt - full function stop. (step 1.2.ER)
-        if (ThisFile.suffix()!="txt")
+        if (ThisFile.suffix()!="txt" && ThisFile.suffix()!="csv")
         {   QMessageBox::warning(this,"Error","ActionOpenFile::The file has wrong type!\nCode ER:2");
-            OpenFile_Path=NULL;
-            return;   }
-        QTextStream in(&File);
+            openFilePath=NULL;
+            return;
+        }
+        QTextStream in(&file);
 
         //stage 3 - reading file. (step 1.3)
         while(!in.atEnd())
         {
-            QString FileLine = in.readLine();
-            QStringList LineList = FileLine.split(";");
+            QString fileLine = in.readLine();
+            QStringList lineList = fileLine.split(";");
             //single try to prevent program work with wrong csv file (step 1.3.ER)
-            if (LineList.length()<10 || LineList.length()%10!=0)
+            if (lineList.length()<10 || lineList.length()%10!=0)
                 {
                 QMessageBox::warning(this,"Error","ActionOpenFile::The file has incorrect text!\nCode ER:3");
-                File.close();
-                ClearLabels();
-                OpenFile_Path=NULL;
-                FileLine=NULL;
-                LineList.clear();
-                widelist.clear();
+                file.close();
+                clearLabels();
+                openFilePath=NULL;
+                fileLine=NULL;
+                lineList.clear();
+                wideList.clear();
                 return;
                 }
             //check if file has empty fields - throws a warning (step 1.3.ER2)
-            if (LineList.contains(" ") || LineList.contains(""))
+            if (lineList.contains(" ") || lineList.contains(""))
                 QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\nCode WR:4");
-            widelist.append(FileLine);
-            ui->objectsList->addItem(LineList[1]+" ("+LineList[2]+") named "+LineList[0]);
+            wideList.append(fileLine);
+            ui->objectsList->addItem(lineList[1]+" ("+lineList[2]+") named "+lineList[0]);
         }
-        //close file (it isn't required cuz it is closed in ~destructor()
-        File.close();
+        //close file (it isn't required cause it is closed in ~destructor()
+        file.close();
         //set default (starting index)
-        wideindex = 0;
+        wideIndex = 0;
 
         //stage 4 - setting up the labels. (step 1.4)
-        SetLabels();
-        //somekind of crutch - to prevent out of range (nasty thing)
-        if (widelist.length()!=1)
-        {ui->buttonNextPlanet->setEnabled(1);
-        ui->buttonPrevPlanet->setEnabled(1);}
+        setLabels();
+        //somekind of crutch - to prevent out of range
+        if (wideList.length()!=1)
+        {ui->nextObjectButton->setEnabled(1);
+        ui->prevObjectButton->setEnabled(1);}
     }
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::on_exitMenuBar_triggered()
 { QCoreApplication::exit(); }
 
-void MainWindow::on_actionClose_triggered()
+void MainWindow::on_closeMenuBar_triggered()
 {
-    if (widelist.isEmpty())
+    if (wideList.isEmpty())
         QMessageBox::warning(this,"Warning","ActionCloseFile::The list is empty or the file wasn't opened.\nNo need to close anything!\nCode WR:5");
-    ClearLabels();
-    ui->buttonNextPlanet->setEnabled(0);
-    ui->buttonPrevPlanet->setEnabled(0);
+    clearLabels();
+    ui->nextObjectButton->setEnabled(0);
+    ui->prevObjectButton->setEnabled(0);
 }
 
-void MainWindow::on_buttonNextPlanet_clicked()
+void MainWindow::on_nextObjectButton_clicked()
 {
     //stage 1 - increment index (step 2.1)
-    wideindex++;
+    wideIndex++;
     //stage 2 - check if index is bigger than maxindex - then index=0 so there is no out of range (step 2.2)
-    if (wideindex==widelist.length())
-        wideindex=0;
+    if (wideIndex==wideList.length())
+        wideIndex=0;
     //stage 3 - set fields (step 2.3)
-    SetLabels();
+    setLabels();
     //change combobox's current index - current chosen object
-    ui->objectsList->setCurrentIndex(wideindex);
+    ui->objectsList->setCurrentIndex(wideIndex);
 }
 
-void MainWindow::on_buttonPrevPlanet_clicked()
+void MainWindow::on_prevObjectButton_clicked()
 {
     //stage 1 - decrement index (step 3.1)
-    wideindex--;
+    wideIndex--;
     //stage 2 - check if index is lesser than minindex - then index=maxindex so there is no out of range (step 3.2)
-    if (wideindex<0)
-        wideindex=widelist.length()-1;
+    if (wideIndex<0)
+        wideIndex=wideList.length()-1;
     //stage 3 set fields (step 3.3)
-    SetLabels();
+    setLabels();
     //change combobox's current index - current chosen object
-    ui->objectsList->setCurrentIndex(wideindex);
+    ui->objectsList->setCurrentIndex(wideIndex);
 }
 
 void MainWindow::on_objectsList_currentIndexChanged(int index)
 {
     //stage 1 - change selected object by the index in combobox (step 4.1)
-    wideindex = index;
+    wideIndex = index;
     //stage 2 - set labels if wideindex is within range "0<"???? Kinda strange thing that it's required (step 4.2)
-    if (0<wideindex<(widelist.length()))
-        SetLabels();
+    if (0<wideIndex<(wideList.length()))
+        setLabels();
 }
 
-void MainWindow::SetLabels()
+void MainWindow::setLabels()
 {
     //index is universal, so it is changed depending on button and list funcs.
     //this func. is mere sets the labels of the line(one string) with this index
-    QString ThisString = widelist[wideindex]; //chosing this object out of all
-    QStringList ThisList = ThisString.split(";"); //split this object by parameters
+    QString thisString = wideList[wideIndex]; //chosing this object out of all
+    QStringList thisList = thisString.split(";"); //split this object by parameters
 
     //setting up the texts in labels
-    ui->NameObject->setText(ThisList[0]);
-    ui->TypeObject->setText(ThisList[1]);
-    ui->SubTypeObject->setText(ThisList[2]);
-    ui->RadiusObject->setText(ThisList[3]);
-    ui->WeightObject->setText(ThisList[4]);
-    ui->MoonsObject->setText(ThisList[5]);
-    ui->PopulationObject->setText(ThisList[6]);
-    ui->RotationObject->setText(ThisList[7]);
-    ui->TemperatureObject->setText(ThisList[8]);
+    ui->nameObject->setText(thisList[0]);
+    ui->typeObject->setText(thisList[1]);
+    ui->subTypeObject->setText(thisList[2]);
+    ui->radiusObject->setText(thisList[3]);
+    ui->weightObject->setText(thisList[4]);
+    ui->moonsObject->setText(thisList[5]);
+    ui->populationObject->setText(thisList[6]);
+    ui->rotationObject->setText(thisList[7]);
+    ui->temperatureObject->setText(thisList[8]);
 
     //setting up the image in pixmap - check whether the file exists
-    if (QFile::exists(ThisList[9]))
-    {   QPixmap image(ThisList[9]);
-        ui->ImageObject->setPixmap(image);    }
+    if (QFile::exists(thisList[9]))
+    {   QPixmap image(thisList[9]);
+        ui->imageObject->setPixmap(image);    }
     else //if not the code below sets default picture
     {
         QPixmap image(":/pack1/iconmark.png");
-        ui->ImageObject->setPixmap(image);
+        ui->imageObject->setPixmap(image);
     }
 }
 
-void MainWindow::ClearLabels()
+void MainWindow::clearLabels()
 {
     //extra tool - required for closing and opening new databases
     //clear all lists and labels
-    widelist.clear();
+    wideList.clear();
     ui->objectsList->clear();
     ui->objectsList->addItem("Planet named Earth");
 
     //setting up default names
-    ui->NameObject->setText("Earth");
-    ui->TypeObject->setText("Planet");
-    ui->SubTypeObject->setText("Exoplanet");
-    ui->RadiusObject->setText("6371 km");
-    ui->WeightObject->setText("5.972e24 kg");
-    ui->MoonsObject->setText("1 (Moon)");
-    ui->PopulationObject->setText("7 500 000 000");
-    ui->RotationObject->setText("23:56:04");
-    ui->TemperatureObject->setText("14 celsius");
+    ui->nameObject->setText("Earth");
+    ui->typeObject->setText("Planet");
+    ui->subTypeObject->setText("Exoplanet");
+    ui->radiusObject->setText("6371 km");
+    ui->weightObject->setText("5.972e24 kg");
+    ui->moonsObject->setText("1 (Moon)");
+    ui->populationObject->setText("7 500 000 000");
+    ui->rotationObject->setText("23:56:04");
+    ui->temperatureObject->setText("14 celsius");
 
     //setting up default images
-    QPixmap image(":/pack1/planetDefault.png");
-    ui->ImageObject->setPixmap(image);
+    QPixmap image(":/images/volume1/planetDefault.png");
+    ui->imageObject->setPixmap(image);
 }
 
-void MainWindow::on_actionShow_about_triggered()
+void MainWindow::on_showAboutMenuBar_triggered()
 {
     //simple open new dialog (about dialog)
     AboutDialog aboutdialog;
@@ -206,38 +205,38 @@ void MainWindow::on_actionShow_about_triggered()
     aboutdialog.exec();
 }
 
-void MainWindow::on_actionOpenEdit_triggered()
+void MainWindow::on_openEditMenuBar_triggered()
 {
     //pretty much the same. BUT it closes current opened csv-base
-    ClearLabels();
-    ui->buttonNextPlanet->setEnabled(0);
-    ui->buttonPrevPlanet->setEnabled(0);
+    clearLabels();
+    ui->nextObjectButton->setEnabled(0);
+    ui->prevObjectButton->setEnabled(0);
     EditDialog editdialog;
     editdialog.setModal(true);
     editdialog.exec();
 }
 
-void MainWindow::on_actionCreate_triggered()
+void MainWindow::on_openCreateMenuBar_triggered()
 {
     //exactly the same as one before
-    ClearLabels();
-    ui->buttonNextPlanet->setEnabled(0);
-    ui->buttonPrevPlanet->setEnabled(0);
+    clearLabels();
+    ui->nextObjectButton->setEnabled(0);
+    ui->prevObjectButton->setEnabled(0);
     CreateDialog createdialog;
     createdialog.setModal(true);
     createdialog.exec();
 }
 
-void MainWindow::on_actionShow_sources_triggered()
+void MainWindow::on_showSourcesMenuBar_triggered()
 {
-    sourcedialog sourcedialog;
+    SourceDialog sourcedialog;
     sourcedialog.setModal(true);
     sourcedialog.exec();
 }
 
-void MainWindow::on_actionLook_triggered()
+void MainWindow::on_openCSVMenuBar_triggered()
 {
-    QString string = widelist.join("");
+    QString string = wideList.join("\n");
     CsvView csvview(this,string);
     csvview.setModal(true);
     csvview.exec();

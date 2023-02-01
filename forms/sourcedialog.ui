@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>sourcedialog</class>
- <widget class="QDialog" name="sourcedialog">
+ <class>SourceDialog</class>
+ <widget class="QDialog" name="SourceDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,7 +32,7 @@
    <string>Sources</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/pack1.qrc">
+   <iconset>
     <normaloff>:/pack1/iconabout.png</normaloff>:/pack1/iconabout.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -61,7 +61,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/qt.png</pixmap>
+          <pixmap>:/pack2/qt.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -83,7 +83,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/qtc.png</pixmap>
+          <pixmap>:/pack2/qtc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -105,7 +105,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/gh.png</pixmap>
+          <pixmap>:/pack2/gh.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -127,7 +127,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/wd.png</pixmap>
+          <pixmap>:/pack2/wd.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -140,7 +140,7 @@
       </layout>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="closeButton">
        <property name="text">
         <string>Close</string>
        </property>
@@ -175,7 +175,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/so.png</pixmap>
+          <pixmap>:/pack2/so.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -197,7 +197,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/yt.png</pixmap>
+          <pixmap>:/pack2/yt.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -219,7 +219,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/dc.png</pixmap>
+          <pixmap>:/pack2/dc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -241,7 +241,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../res/pack2.qrc">:/pack2/lc.png</pixmap>
+          <pixmap>:/pack2/lc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -257,9 +257,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../res/pack2.qrc"/>
-  <include location="../res/pack1.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

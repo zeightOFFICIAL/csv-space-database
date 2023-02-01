@@ -17,33 +17,32 @@ public:
 
 private slots:
 
-    //menu bar functuions
-    void on_actionOpen_triggered();
-    void on_actionExit_triggered();
-    void on_actionClose_triggered();
+    //funcs. For menu bar's buttons
+    void on_openMenuBar_triggered();
+    void on_exitMenuBar_triggered();
+    void on_closeMenuBar_triggered();
 
-    //buttons to manipulate view
-    void on_buttonNextPlanet_clicked();
-    void on_buttonPrevPlanet_clicked();
-
-    //actions to manipulate views
+    //funcs. To manipulate view
+    void on_nextObjectButton_clicked();
+    void on_prevObjectButton_clicked();
     void on_objectsList_currentIndexChanged(int index);
 
-    //actions to open another forms
-    void on_actionShow_about_triggered();
-    void on_actionShow_sources_triggered();
-    void on_actionOpenEdit_triggered();
-    void on_actionCreate_triggered();
-
-    void on_actionLook_triggered();
+    //funcs. To open other forms, dialogs
+    void on_showAboutMenuBar_triggered();
+    void on_showSourcesMenuBar_triggered();
+    void on_openEditMenuBar_triggered();
+    void on_openCreateMenuBar_triggered();
+    void on_openCSVMenuBar_triggered();
 
 private:
     Ui::MainWindow *ui;
 
-    int wideindex = 0;
-    QStringList widelist;
+    //vars. Universal vars to track showing objects of all avaiable
+    int wideIndex = 0;
+    QStringList wideList;
 
-    void SetLabels();
-    void ClearLabels();
+    //funcs. To clear and set values in fields
+    void setLabels();
+    void clearLabels();
 };
 #endif // MAINWINDOW_H

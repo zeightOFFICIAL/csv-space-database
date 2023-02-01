@@ -43,10 +43,6 @@ private slots:
 private:
     Ui::CreateDialog *ui;
 
-    //funcs. Operate class-container
-    void on_PopSlider_sliderMoved(int position);
-    void on_TempSlider_sliderMoved(int position);
-
     //func. Tools to clear fields and databases
     void clearLabels();
     void totalWipe();

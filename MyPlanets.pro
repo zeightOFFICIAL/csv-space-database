@@ -13,7 +13,7 @@ SOURCES += \
     src/createdialog.cpp \
     src/csvview.cpp \
     src/editdialog.cpp \
-    src/main.cpp \
+    main.cpp \
     src/mainwindow.cpp \
     src/sourcedialog.cpp
 

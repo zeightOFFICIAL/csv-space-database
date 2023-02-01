@@ -7,13 +7,6 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-
-    int id = QFontDatabase::addApplicationFont(":/fonts/volume1/venus_uprising.otf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont f(family);
-    f.setPointSize(16);
-    f.setBold(false);
-    ui->mainText->setFont(f);
 }
 
 AboutDialog::~AboutDialog()

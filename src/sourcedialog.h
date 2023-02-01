@@ -4,22 +4,23 @@
 #include <QDialog>
 
 namespace Ui {
-class sourcedialog;
+class SourceDialog;
 }
 
-class sourcedialog : public QDialog
+class SourceDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit sourcedialog(QWidget *parent = nullptr);
-    ~sourcedialog();
+    explicit SourceDialog(QWidget *parent = nullptr);
+    ~SourceDialog();
 
 private slots:
-    void on_pushButton_clicked();
+    // func. Close dialog window, proceed to MainWindow (ViewWindow)
+    void on_closeButton_clicked();
 
 private:
-    Ui::sourcedialog *ui;
+    Ui::SourceDialog *ui;
 };
 
 #endif // SOURCEDIALOG_H

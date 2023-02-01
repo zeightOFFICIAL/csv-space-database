@@ -1,19 +1,19 @@
 #include "sourcedialog.h"
 #include "ui_sourcedialog.h"
 
-sourcedialog::sourcedialog(QWidget *parent) :
+SourceDialog::SourceDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::sourcedialog)
+    ui(new Ui::SourceDialog)
 {
     ui->setupUi(this);
 }
 
-sourcedialog::~sourcedialog()
+SourceDialog::~SourceDialog()
 {
     delete ui;
 }
 
-void sourcedialog::on_pushButton_clicked()
+void SourceDialog::on_closeButton_clicked()
 {
     this->close();
 }
