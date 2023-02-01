@@ -92,6 +92,7 @@ size_t queue<T>::size() const
     return 0;
 }
 
+// description of clearAll() is redundant! however it works
 template <typename T>
 void queue<T>::clearAll()
 {

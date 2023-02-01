@@ -28,7 +28,7 @@ private slots:
     //func. Crucial navigator. List at the top
     void on_mainbox_currentIndexChanged(int index);
 
-    //func. To reload new image
+    //func. To load new image
     void on_openImageButton_clicked();
 
 private:

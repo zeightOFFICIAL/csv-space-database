@@ -18,4 +18,3 @@ void CsvView::on_closeButton_clicked()
 {
     this->close();
 }
-

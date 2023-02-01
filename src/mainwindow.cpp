@@ -40,7 +40,7 @@ void MainWindow::on_openMenuBar_triggered()
     QFile file(openFilePath);
     //check if file was actually opened
     if(!file.open(QFile::ReadOnly | QFile::Text))
-    {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file wasn't chosen!!\n(Code ER:1)");
+    {   QMessageBox::information(this,"Open uncomplete","open::The file wasn't chosen!!\n(Code ER:1)");
         openFilePath=NULL;
         return;
     }
@@ -49,25 +49,25 @@ void MainWindow::on_openMenuBar_triggered()
         QFileInfo ThisFile(openFilePath);
         //check file format if it isn't txt - full function stop. (step 1.2.ER)
         if (ThisFile.suffix()!="txt" && ThisFile.suffix()!="csv")
-        {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
+        {   QMessageBox::information(this,"Open uncomplete","open::The file has wrong type!\n(Code ER:2)");
             openFilePath=NULL;
             return;
         }
         QTextStream in(&file);
-        if (in.readLine().count(";") < 9) {
-            openFilePath=NULL;
-            file.close();
-            return;
-        }
         //stage 3 - reading file. (step 1.3)
         while(!in.atEnd())
         {
             QString fileLine = in.readLine();
+            if (fileLine.count(";") < 9) {
+                openFilePath=NULL;
+                file.close();
+                return;
+            }
             QStringList lineList = fileLine.split(";");
             //single try to prevent program work with wrong csv file (step 1.3.ER)
             if (lineList.length()<10 || lineList.length()%10!=0)
                 {
-                QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
+                QMessageBox::information(this,"Parsing unfinished","open::Parsing error, lacking required ';'!\n(Code ER:3)");
                 file.close();
                 clearLabels();
                 openFilePath=NULL;
@@ -78,7 +78,7 @@ void MainWindow::on_openMenuBar_triggered()
                 }
             //check if file has empty fields - throws a warning (step 1.3.ER2)
             if (lineList.contains(" ") || lineList.contains(""))
-                QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\n(Code WR:4)");
+                QMessageBox::information(this,"Parsing unfinished","open::Some parameters are not specified!\n(Code WR:4)");
             wideList.append(fileLine);
             ui->objectsList->addItem(lineList[1]+" ("+lineList[2]+") named "+lineList[0]);
         }
@@ -102,7 +102,7 @@ void MainWindow::on_exitMenuBar_triggered()
 void MainWindow::on_closeMenuBar_triggered()
 {
     if (wideList.isEmpty())
-        QMessageBox::warning(this,"Warning","ActionCloseFile::The list is empty or the file wasn't opened.\nNo need to close anything!\n(Code WR:5)");
+        QMessageBox::information(this,"Warning","close::The list is empty or the file wasn't opened.\nNo need to close anything!\n(Code WR:5)");
     clearLabels();
     ui->nextObjectButton->setEnabled(0);
     ui->prevObjectButton->setEnabled(0);
@@ -138,8 +138,8 @@ void MainWindow::on_objectsList_currentIndexChanged(int index)
 {
     //stage 1 - change selected object by the index in combobox (step 4.1)
     wideIndex = index;
-    //stage 2 - set labels if wideindex is within range "0<"???? Kinda strange thing that it's required (step 4.2)
-    if (0<wideIndex<(wideList.length()))
+    //stage 2 - set labels if wideindex is within range ">0"
+    if (0<wideIndex && wideIndex<(wideList.length()))
         setLabels();
 }
 
@@ -167,7 +167,7 @@ void MainWindow::setLabels()
         ui->imageObject->setPixmap(image);    }
     else //if not the code below sets default picture
     {
-        QPixmap image(":/pack1/iconmark.png");
+        QPixmap image(":/images/volume1/iconmark.png");
         ui->imageObject->setPixmap(image);
     }
 }

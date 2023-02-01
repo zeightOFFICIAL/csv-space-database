@@ -12,6 +12,7 @@ class CsvView : public QDialog
     Q_OBJECT
 
 public:
+    // QString list stores which csv-formated text to show
     explicit CsvView(QWidget *parent = nullptr, QString list = "");
     ~CsvView();
 

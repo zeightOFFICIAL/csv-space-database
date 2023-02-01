@@ -6,3 +6,4 @@ Jupiter;Planet;Gas giant;66000 km;1.89*10^27 kg;79;0;398 days;-145C;:/img/jupite
 Saturn;Planet;Gas giant;54364 km;5.68*10^26 kg;82;0;378 days;134K;:/img/saturn.png
 Uranus;Planet;Gas giant;24973 km;8.69*10^25 kg;27;0;369 days;76K;:/img/uranus.png
 Neptune;Planet;Gas giant;24754 km;1.042*10^26 kg;14;0;367 days;-201C;:/img/neptune.png
+Mercury;Planet;Rocky planet;2439 km;3.34*10^23 kg;0;0;88 days;200C;:/img/mercury.png

@@ -24,7 +24,7 @@ void CreateDialog::on_createNewDBButton_clicked()
     if (!ui->staticLabel2->toPlainText().isEmpty())
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to proceed and DELETE this database?",QMessageBox::Yes | QMessageBox::No);
+        reply = QMessageBox::question(this,"Action required","You have unsaved progress!\nDo you want to proceed and DELETE this database?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
            totalWipe();
         else return;
@@ -45,7 +45,7 @@ void CreateDialog::on_saveDBButton_clicked()
         //check whether the file is avaiable
         if(!file.open(QFile::WriteOnly | QFile::Text))
         {
-            QMessageBox::warning(this,"Warning","SaveAs::The file wasn't chosen!\n(Code ER:1)");
+            QMessageBox::information(this,"Saving uncomplete","saveDB::The file wasn't chosen!\n(Code ER:1)");
             saveFilePath=NULL;
             return;
         }
@@ -62,7 +62,7 @@ void CreateDialog::on_saveDBButton_clicked()
         file.close();
         totalWipe();
     }
-    else QMessageBox::warning(this,"Warning","SaveAs::Database is empty!\n(Code ER:6)");
+    else QMessageBox::information(this,"Saving uncomplete","saveDB::Database is empty!\n(Code ER:6)");
 }
 
 void CreateDialog::on_addObjectButton_clicked()
@@ -74,7 +74,7 @@ void CreateDialog::on_addObjectButton_clicked()
             ui->populationField->text().isEmpty() || ui->rotationField->text().isEmpty() || ui->temperatureField->text().isEmpty() ||
             ui->imageField->text().isEmpty())
     {
-        QMessageBox::warning(this,"Warning","AddObject::Some fields are empty!\n(Code WR:ADD)");
+        QMessageBox::information(this,"Add object uncomplete","addObject::Some fields are empty!\n(Code WR:ADD)");
         if(ui->nameField->text().isEmpty())
             ui->nameField->setText("Unknown");
         if(ui->typeList->currentText().isEmpty())
@@ -129,7 +129,7 @@ void CreateDialog::on_closeButton_clicked()
     if (!ui->staticLabel2->toPlainText().isEmpty())
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to SAVE the progress?",QMessageBox::Yes | QMessageBox::No);
+        reply = QMessageBox::question(this,"Action required","You have unsaved progress!\nDo you want to SAVE the progress?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
         {
            on_saveDBButton_clicked();
@@ -276,7 +276,7 @@ void CreateDialog::on_chooseFileButton_clicked()
     QFileInfo thisFile(openFilePath);
     if(!thisFile.exists())
     {
-        QMessageBox::warning(this,"Warning","ChoseFile::File does not exist!\n(Code ER:IMAGE)");
+        QMessageBox::information(this,"Image was not found","chooseFile::File does not exist!\n(Code ER:IMAGE)");
         return;
     }
     ui->imageField->setText(openFilePath);
