@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MyPlanets CSV view (united)</string>
+   <string>MyPlanets CSVview (united)</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../res/package.qrc">

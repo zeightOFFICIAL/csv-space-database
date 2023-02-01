@@ -22,9 +22,9 @@ private slots:
     void on_createNewDBButton_clicked();
     void on_saveDBButton_clicked();
 
-    //funcs. Add new object to the database and clean all fields after
-    void on_addObject_clicked();
-    void on_clearFields_clicked();
+    //funcs. Add new object to the database and clean all the fields after
+    void on_addObjectButton_clicked();
+    void on_clearFieldsButton_clicked();
 
     //funcs. Manage windows. Save database and close or simply close create window
     void on_applyButton_clicked();
@@ -34,7 +34,7 @@ private slots:
     void on_typeList_currentIndexChanged(int index);
 
     //func. Open another file, simplyfied
-    void on_chooseFile_clicked();
+    void on_chooseFileButton_clicked();
 
     //funcs. Manage sliders to change values in fields
     void on_tempSlider_valueChanged(int value);

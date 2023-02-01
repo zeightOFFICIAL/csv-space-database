@@ -56,10 +56,10 @@ void EditDialog::loadLabels()
 void EditDialog::on_openDBButton_clicked()
 {
     //if file wasn't saved ask whether user wants to save it or proceed saving not
-    if(isUnsaved == false)
+    if(isSaved == false)
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to save this database?",QMessageBox::Yes | QMessageBox::No);
+        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to SAVE this database?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
             on_saveDBButton_clicked();
         else
@@ -167,7 +167,7 @@ void EditDialog::on_saveChangesButton_clicked()
         ui->mainbox->addItem("<add>");
         ui->deleteObjectButton->setEnabled(1);
     }
-    QMessageBox::warning(this,"Success","This object was successefully reloaded!");
+    QMessageBox::warning(this,"Success","This object was successefully (re)loaded!");
 }
 
 void EditDialog::on_deleteObjectButton_clicked()
@@ -202,69 +202,83 @@ void EditDialog::on_mainbox_currentIndexChanged(int index)
 
 void EditDialog::on_saveDBButton_clicked()
 {
-    QFile LocalFile(openFilePath);
-    if(!LocalFile.open(QFile::WriteOnly|QFile::Truncate))
+    QFile localFile(openFilePath);
+    if(!localFile.open(QFile::WriteOnly|QFile::Truncate))
     {
-        QMessageBox::warning(this,"Error","SaveAs::The file wasn't chosen!\nCode ER:1");
+        QMessageBox::warning(this,"Warning","SaveAs::The file wasn't chosen!\n(Code ER:1)");
         openFilePath=NULL;
         return;
     }
-    QTextStream out(&LocalFile);
+    QTextStream out(&localFile);
     for (size_t i = 0; i<mainContainer.size();i++)
     {
         QString ThisLine = mainContainer[i];
         out << ThisLine << "\n";
     }
-    LocalFile.close();
-    QMessageBox::information(this,"Success","Database changed and saved!");
-    isUnsaved = true;
+    localFile.close();
+    QMessageBox::information(this,"Success","Database saved!");
+    isSaved = true;
 }
 
 void EditDialog::on_mergeButton_clicked()
 {
-    QString SecondOpenFile_Filter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
-    QString SecondOpenFile_Path = QFileDialog::getOpenFileName(this,"Open a file","/",SecondOpenFile_Filter);
-    QFile File(SecondOpenFile_Path);
-    if(!File.open(QFile::ReadOnly | QFile::Text))
+    QString secondOpenFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
+    QString secondOpenFilePath = QFileDialog::getOpenFileName(this,"Open a file","/",secondOpenFileFilter);
+    QFile file(secondOpenFilePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QMessageBox::warning(this,"Error","ActionOpen::File wasn't chosen!\nCode ER:1");
+        QMessageBox::warning(this,"Warning","ActionOpen::File wasn't chosen!\n(Code ER:1)");
         openFilePath=NULL;
         return;
     }
-    QFileInfo ThisFile(SecondOpenFile_Path);
-    if (ThisFile.suffix()!="txt")
-    {   QMessageBox::warning(this,"Error","ActionOpenFile::The file has wrong type!\nCode ER:2");
+    QFileInfo thisFile(secondOpenFilePath);
+    if (thisFile.suffix()!="txt" || thisFile.suffix()!="csv")
+    {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
         openFilePath=NULL;
         return;   }
-    QTextStream in(&File);
+    QTextStream in(&file);
     int i=0;
     while(!in.atEnd())
     {
-        QString FileLine = in.readLine();
-        QStringList LineList = FileLine.split(";");
-        if (LineList.length()<10 || LineList.length()%10!=0)
+        QString fileLine = in.readLine();
+        QStringList lineList = fileLine.split(";");
+        if (lineList.length()<10 || lineList.length()%10!=0)
             {
-            QMessageBox::warning(this,"Error","ActionOpenFile::The file has incorrect text!\nCode ER:3");
-            File.close();
-            SecondOpenFile_Path=NULL;
-            FileLine=NULL;
-            LineList.clear();
+            QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
+            file.close();
+            secondOpenFilePath=NULL;
+            fileLine=NULL;
+            lineList.clear();
             return;
             }
-        if (LineList.contains(" ") || LineList.contains(""))
-            QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\nCode WR:4");
+        if (lineList.contains(" ") || lineList.contains(""))
+            QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\n(Code WR:4)");
         if(i == 0)
         {
             ui->mainbox->removeItem(mainContainer.size());
             i=1;
         }
-        mainContainer.push_back(FileLine);
-        ui->mainbox->addItem(FileLine);
+        mainContainer.push_back(fileLine);
+        ui->mainbox->addItem(fileLine);
 
     }
-    File.close();
+    file.close();
     localWideIndex=0;
 
     ui->mainbox->addItem("<add>");
+}
+
+void EditDialog::on_openImageButton_clicked()
+{
+    ui->imageField->clear();
+    QString openFileFilter = "PNG File (*.png) ;; Image File (*.jpeg *.jpg *.png *.bmp *.bwm5)";
+    QString openFilePath = QFileDialog::getOpenFileName(this,"Select a file","/",openFileFilter);
+    QFileInfo thisFile(openFilePath);
+    if(!thisFile.exists())
+    {
+        QMessageBox::warning(this,"Warning","ChoseFile::File does not exist!\n(Code ER:IMAGE)");
+        return;
+    }
+    ui->imageField->setText(openFilePath);
 }
 

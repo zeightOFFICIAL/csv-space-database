@@ -28,6 +28,9 @@ private slots:
     //func. Crucial navigator. List at the top
     void on_mainbox_currentIndexChanged(int index);
 
+    //func. To reload new image
+    void on_openImageButton_clicked();
+
 private:
     Ui::EditDialog *ui;
 
@@ -39,7 +42,7 @@ private:
     std::vector<QString> mainContainer;
     size_t localWideIndex = 0;
     QString openFilePath;
-    bool isUnsaved = true;
+    bool isSaved = true;
 };
 
 #endif // EDITDIALOG_H

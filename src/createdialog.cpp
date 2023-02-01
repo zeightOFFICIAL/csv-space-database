@@ -65,7 +65,7 @@ void CreateDialog::on_saveDBButton_clicked()
     else QMessageBox::warning(this,"Warning","SaveAs::Database is empty!\n(Code ER:6)");
 }
 
-void CreateDialog::on_addObject_clicked()
+void CreateDialog::on_addObjectButton_clicked()
 {
     //stage 1 - check if fields are not empty - if so, set default param. (step 6.1)
     QString localLine;
@@ -111,7 +111,7 @@ void CreateDialog::on_addObject_clicked()
     clearLabels();
 }
 
-void CreateDialog::on_clearFields_clicked()
+void CreateDialog::on_clearFieldsButton_clicked()
 {
     clearLabels();
 }
@@ -125,11 +125,11 @@ void CreateDialog::on_applyButton_clicked()
 
 void CreateDialog::on_closeButton_clicked()
 {
-    //if there is no file inside the textbox -> so there is no database which is being edit.
+    //if there is no file inside the textbox -> so there is no database which is being edited.
     if (!ui->staticLabel2->toPlainText().isEmpty())
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to save the progress?",QMessageBox::Yes | QMessageBox::No);
+        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to SAVE the progress?",QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes)
         {
            on_saveDBButton_clicked();
@@ -268,18 +268,18 @@ void CreateDialog::on_typeList_currentIndexChanged(int index)
     }
 }
 
-void CreateDialog::on_chooseFile_clicked()
+void CreateDialog::on_chooseFileButton_clicked()
 {
     ui->imageField->clear();
-    QString OpenFile_Filter = "PNG File (*.png) ;; Image File (*.jpeg *.jpg *.png *.bmp *.bwm5)";
-    QString OpenFile_Path = QFileDialog::getOpenFileName(this,"Select a file","/",OpenFile_Filter);
-    QFileInfo ThisFile(OpenFile_Path);
-    if(!ThisFile.exists())
+    QString openFileFilter = "PNG File (*.png) ;; Image File (*.jpeg *.jpg *.png *.bmp *.bwm5)";
+    QString openFilePath = QFileDialog::getOpenFileName(this,"Select a file","/",openFileFilter);
+    QFileInfo thisFile(openFilePath);
+    if(!thisFile.exists())
     {
         QMessageBox::warning(this,"Warning","ChoseFile::File does not exist!\n(Code ER:IMAGE)");
         return;
     }
-    ui->imageField->setText(OpenFile_Path);
+    ui->imageField->setText(openFilePath);
 }
 
 void CreateDialog::totalWipe()
@@ -300,7 +300,10 @@ void CreateDialog::updateTextWhole(QString string)
 void CreateDialog::on_popSlider_valueChanged(int value)
 {
     //we have slider on creationform which utterly arranges the value. it might be more quick and cozy
-    ui->populationField->setText(QString::number(value)+"0");
+    QString translated = QString::number(value);
+    if (translated != "0")
+        translated = translated+"0";
+    ui->populationField->setText(translated);
 }
 
 void CreateDialog::on_tempSlider_valueChanged(int value)

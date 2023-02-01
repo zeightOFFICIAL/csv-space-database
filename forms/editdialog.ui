@@ -62,9 +62,15 @@
      <item row="2" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout4">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout3">
          <item>
           <widget class="QLabel" name="nonactive2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -80,6 +86,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive8">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -95,6 +107,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive5">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -110,6 +128,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -125,6 +149,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive7">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -140,6 +170,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive9">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -155,6 +191,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive6">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -170,6 +212,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -185,6 +233,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -200,6 +254,12 @@
          </item>
          <item>
           <widget class="QLabel" name="nonactive3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -235,6 +295,12 @@
         <layout class="QVBoxLayout" name="verticalLayout2">
          <item>
           <widget class="QLineEdit" name="nameField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -244,6 +310,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="typeField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -253,6 +325,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="subField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -262,6 +340,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="radiusField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -271,6 +355,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="weightField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -280,6 +370,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="moonsField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -289,6 +385,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="populationField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -298,6 +400,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="rotationField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -307,6 +415,12 @@
          </item>
          <item>
           <widget class="QLineEdit" name="temperatureField">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -315,13 +429,36 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="imageField">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout2_2">
+           <item>
+            <widget class="QLineEdit" name="imageField">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="openImageButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Choose Image</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>

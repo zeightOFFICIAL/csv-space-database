@@ -83,7 +83,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout3">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <layout class="QVBoxLayout" name="verticalLayout4">
          <item>
           <widget class="QLabel" name="nonactive9">
            <property name="font">
@@ -237,7 +237,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout2">
          <item>
           <widget class="QLineEdit" name="nameField">
            <property name="font">
@@ -354,7 +354,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <layout class="QHBoxLayout" name="horizontalLayout7">
            <item>
             <widget class="QLineEdit" name="populationField">
              <property name="font">
@@ -386,7 +386,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="horizontalLayout6">
            <item>
             <widget class="QLineEdit" name="temperatureField">
              <property name="font">
@@ -412,12 +412,12 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <layout class="QHBoxLayout" name="horizontalLayout8">
            <item>
             <widget class="QLineEdit" name="imageField"/>
            </item>
            <item>
-            <widget class="QPushButton" name="chooseFile">
+            <widget class="QPushButton" name="chooseFileButton">
              <property name="text">
               <string>Chose file</string>
              </property>
@@ -428,9 +428,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout3">
          <item>
-          <widget class="QPushButton" name="addObject">
+          <widget class="QPushButton" name="addObjectButton">
            <property name="text">
             <string/>
            </property>
@@ -450,7 +450,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="clearFields">
+          <widget class="QPushButton" name="clearFieldsButton">
            <property name="text">
             <string/>
            </property>
