@@ -36,6 +36,11 @@ void EditDialog::cearAllLabels()
     ui->imageField->setText("");
 }
 
+void EditDialog::totalWipe() {
+    cearAllLabels();
+    ui->mainbox->clear();
+}
+
 void EditDialog::loadLabels()
 {
     QString thisString = mainContainer[localWideIndex];
@@ -55,52 +60,47 @@ void EditDialog::loadLabels()
 
 void EditDialog::on_openDBButton_clicked()
 {
-    //if file wasn't saved ask whether user wants to save it or proceed saving not
-    if(isSaved == false)
-    {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"Warning","You have unsaved progress!\nDo you want to SAVE this database?",QMessageBox::Yes | QMessageBox::No);
-        if (reply == QMessageBox::Yes)
-            on_saveDBButton_clicked();
-        else
-            return;
-    }
-    //if previous condition is not called or file was saved proceed here
-    cearAllLabels();
     QString openFileFilter = "Text File (*.txt) ;; CSV File (*.csv) ;; All File (*.*)";
-    openFilePath = QFileDialog::getOpenFileName(this,"Open a file","/",openFileFilter);
+    QString openFilePathNew = QFileDialog::getOpenFileName(this,"Open a file","/",openFileFilter);
 
-    QFile file(openFilePath);
+    QFile file(openFilePathNew);
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
         QMessageBox::warning(this,"Warning","ActionOpenFile::The file wasn't chosen!\n(Code ER:1)");
-        openFilePath=NULL;
+        openFilePathNew=NULL;
+        file.close();
         return;
     }
     else
     {
-        QFileInfo thisFile(openFilePath);
+        QFileInfo thisFile(openFilePathNew);
         if (thisFile.suffix()!="txt" && thisFile.suffix()!="csv")
         {
             QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
-            openFilePath=NULL;
+            openFilePathNew=NULL;
+            file.close();
             return;
         }
         QTextStream in(&file);
 
+        totalWipe();
         while(!in.atEnd())
         {
+            if (in.atEnd()) {
+                file.close();
+                return;
+            }
             QString fileLine = in.readLine();
             QStringList lineList = fileLine.split(";");
             if (lineList.length()<10 || lineList.length()%10!=0)
                 {
-                QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
-                file.close();
-                cearAllLabels();
-                openFilePath=NULL;
+                totalWipe();
                 fileLine=NULL;
                 lineList.clear();
                 mainContainer.clear();
+                QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
+                openFilePathNew=NULL;
+                file.close();
                 return;
                 }
             if (lineList.contains(" ") || lineList.contains(""))
@@ -109,6 +109,13 @@ void EditDialog::on_openDBButton_clicked()
             }
             mainContainer.push_back(fileLine);
             ui->mainbox->addItem(fileLine);
+        }
+        if (!openFilePathNew.isNull())
+        {
+            ui->saveChangesButton->setText("Change This Object");
+            ui->openDBButton->setEnabled(0);
+            ui->mergeButton->setEnabled(1);
+            openFilePath = openFilePathNew;
         }
         //so the main idea of this editing mode is its ability to add new object to database. so in order to create new object
         //one must select "<add>" item of list and then save the labels - not very convenient yet there're worse ways
@@ -178,6 +185,14 @@ void EditDialog::on_deleteObjectButton_clicked()
 
 void EditDialog::on_mainbox_currentIndexChanged(int index)
 {
+    if (index == ui->mainbox->count()-1) {
+        ui->deleteObjectButton->setEnabled(0);
+        ui->saveChangesButton->setText("Add object");
+    }
+    else {
+        ui->deleteObjectButton->setEnabled(1);
+        ui->saveChangesButton->setText("Change This Object");
+    }
     if(mainContainer.size()==0)
         ui->deleteObjectButton->setEnabled(0);
     if(index<mainContainer.size())
@@ -217,7 +232,6 @@ void EditDialog::on_saveDBButton_clicked()
     }
     localFile.close();
     QMessageBox::information(this,"Success","Database saved!");
-    isSaved = true;
 }
 
 void EditDialog::on_mergeButton_clicked()
@@ -232,7 +246,7 @@ void EditDialog::on_mergeButton_clicked()
         return;
     }
     QFileInfo thisFile(secondOpenFilePath);
-    if (thisFile.suffix()!="txt" || thisFile.suffix()!="csv")
+    if (thisFile.suffix()!="txt" && thisFile.suffix()!="csv")
     {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
         openFilePath=NULL;
         return;   }
@@ -264,6 +278,8 @@ void EditDialog::on_mergeButton_clicked()
     }
     file.close();
     localWideIndex=0;
+    ui->saveChangesButton->setEnabled(1);
+    ui->deleteObjectButton->setEnabled(1);
 
     ui->mainbox->addItem("<add>");
 }

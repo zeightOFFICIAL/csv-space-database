@@ -36,13 +36,13 @@ private:
 
     //func. Extra tools to clear and set values in fields
     void cearAllLabels();
+    void totalWipe();
     void loadLabels();
 
     //vars. Inner vars to work with editing
     std::vector<QString> mainContainer;
     size_t localWideIndex = 0;
     QString openFilePath;
-    bool isSaved = true;
 };
 
 #endif // EDITDIALOG_H

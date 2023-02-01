@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int id = QFontDatabase::addApplicationFont(":/fonts/volume1/venus_uprising.otf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont f(family);
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +40,7 @@ void MainWindow::on_openMenuBar_triggered()
     QFile file(openFilePath);
     //check if file was actually opened
     if(!file.open(QFile::ReadOnly | QFile::Text))
-    {   QMessageBox::warning(this,"Error","ActionOpenFile::The file wasn't chosen!!\nCode ER:1");
+    {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file wasn't chosen!!\n(Code ER:1)");
         openFilePath=NULL;
         return;
     }
@@ -52,7 +49,7 @@ void MainWindow::on_openMenuBar_triggered()
         QFileInfo ThisFile(openFilePath);
         //check file format if it isn't txt - full function stop. (step 1.2.ER)
         if (ThisFile.suffix()!="txt" && ThisFile.suffix()!="csv")
-        {   QMessageBox::warning(this,"Error","ActionOpenFile::The file has wrong type!\nCode ER:2");
+        {   QMessageBox::warning(this,"Warning","ActionOpenFile::The file has wrong type!\n(Code ER:2)");
             openFilePath=NULL;
             return;
         }
@@ -66,7 +63,7 @@ void MainWindow::on_openMenuBar_triggered()
             //single try to prevent program work with wrong csv file (step 1.3.ER)
             if (lineList.length()<10 || lineList.length()%10!=0)
                 {
-                QMessageBox::warning(this,"Error","ActionOpenFile::The file has incorrect text!\nCode ER:3");
+                QMessageBox::warning(this,"Warning","ActionOpenFile::The file has incorrect text!\n(Code ER:3)");
                 file.close();
                 clearLabels();
                 openFilePath=NULL;
@@ -77,7 +74,7 @@ void MainWindow::on_openMenuBar_triggered()
                 }
             //check if file has empty fields - throws a warning (step 1.3.ER2)
             if (lineList.contains(" ") || lineList.contains(""))
-                QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\nCode WR:4");
+                QMessageBox::warning(this,"Warning","ActionOpenFile::Some parameters are not specified!\n(Code WR:4)");
             wideList.append(fileLine);
             ui->objectsList->addItem(lineList[1]+" ("+lineList[2]+") named "+lineList[0]);
         }
@@ -101,7 +98,7 @@ void MainWindow::on_exitMenuBar_triggered()
 void MainWindow::on_closeMenuBar_triggered()
 {
     if (wideList.isEmpty())
-        QMessageBox::warning(this,"Warning","ActionCloseFile::The list is empty or the file wasn't opened.\nNo need to close anything!\nCode WR:5");
+        QMessageBox::warning(this,"Warning","ActionCloseFile::The list is empty or the file wasn't opened.\nNo need to close anything!\n(Code WR:5)");
     clearLabels();
     ui->nextObjectButton->setEnabled(0);
     ui->prevObjectButton->setEnabled(0);

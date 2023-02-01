@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
-    <height>300</height>
+    <width>600</width>
+    <height>325</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,22 +18,22 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>600</width>
+    <height>325</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>9000</width>
-    <height>9000</height>
+    <width>600</width>
+    <height>325</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Sources</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/pack1/iconabout.png</normaloff>:/pack1/iconabout.png</iconset>
+   <iconset resource="../res/package.qrc">
+    <normaloff>:/images/volume1/icon.ico</normaloff>:/images/volume1/icon.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
@@ -61,7 +61,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/qt.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/qt.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -72,7 +72,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="label4">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -83,7 +83,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/qtc.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/qtc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -94,7 +94,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_8">
+        <widget class="QLabel" name="label8">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -105,7 +105,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/gh.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/gh.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -116,7 +116,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="label2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -127,7 +127,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/wd.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/wd.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -147,7 +147,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout2">
        <property name="spacing">
         <number>10</number>
        </property>
@@ -164,7 +164,7 @@
         <number>10</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="label5">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -175,7 +175,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/so.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/so.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -186,7 +186,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="label3">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -197,7 +197,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/yt.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/yt.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -208,7 +208,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="label6">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -219,7 +219,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/dc.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/dc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -230,7 +230,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="label7">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
            <horstretch>0</horstretch>
@@ -241,7 +241,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/pack2/lc.png</pixmap>
+          <pixmap resource="../res/package.qrc">:/images/volume1/lc.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -257,6 +257,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res/package.qrc"/>
+ </resources>
  <connections/>
 </ui>
