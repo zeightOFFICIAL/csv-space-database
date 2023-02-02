@@ -55,7 +55,7 @@ void MainWindow::on_openMenuBar_triggered()
         }
         QTextStream in(&file);
         //stage 3 - reading file. (step 1.3)
-        while(!in.atEnd())
+        do
         {
             QString fileLine = in.readLine();
             if (fileLine.count(";") < 9) {
@@ -81,7 +81,7 @@ void MainWindow::on_openMenuBar_triggered()
                 QMessageBox::information(this,"Parsing unfinished","open::Some parameters are not specified!\n(Code WR:4)");
             wideList.append(fileLine);
             ui->objectsList->addItem(lineList[1]+" ("+lineList[2]+") named "+lineList[0]);
-        }
+        } while (!in.atEnd());
         //close file (it isn't required cause it is closed in ~destructor()
         file.close();
         //set default (starting index)

@@ -83,7 +83,7 @@ void EditDialog::on_openDBButton_clicked()
         }
         QTextStream in(&file);
         totalWipe();
-        while(!in.atEnd())
+        do
         {
             QString fileLine = in.readLine();
             if (fileLine.count(";") < 9) {
@@ -109,7 +109,7 @@ void EditDialog::on_openDBButton_clicked()
             }
             mainContainer.push_back(fileLine);
             ui->mainbox->addItem(fileLine);
-        }
+        } while (!in.atEnd());
         if (!openFilePathNew.isNull())
         {
             ui->saveChangesButton->setText("Change This Object");
